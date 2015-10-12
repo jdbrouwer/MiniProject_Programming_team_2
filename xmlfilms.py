@@ -21,6 +21,3 @@ def apicall():
     schrijf_xml(response.text)
 
 apicall()
-
-
-
