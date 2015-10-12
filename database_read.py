@@ -2,11 +2,39 @@ __author__ = 'Jochem'
 
 import sqlite3
 #het openen van een sql database in /PATH
+
 sqlite_file = '/Users/Sebastian/Desktop/my_db.sqlite'
 #connect python en sql
 conn = sqlite3.connect(sqlite_file)
 c = conn.cursor()
 
+#aanmaken van User tabel
+conn.execute('''CREATE TABLE User
+                (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                E_mail STRING UNIQUE NOT NULL,
+                Ticket_code STRING UNIQUE,
+                Gekozen_Film STRING,
+                StartTime_Film,
+                Date_Film);''')
 
+#aanmaken van Provider Tabel
+conn.execute('''CREATE TABLE Providers
+                (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                E_mail STRING NOT NULL UNIQUE,
+                ProviderName,
+                Film STRING NOT NULL);''')
+
+#aanmaken van film database
+conn.execute('''CREATE TABLE Films
+                (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Film_Name STRING NOT NULL,
+                Start_Time_Film TIME,
+                End_Time_Film TIME,
+                Date DATE);''')
+
+
+print('Committing to database')
 conn.commit()
 conn.close()
+
+print("Database created Succesfully")
