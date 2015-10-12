@@ -12,4 +12,3 @@ response = requests.get('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=zmp3t
 response.encoding='utf-8'
 schrijf_xml(response.text)
 
-print('hello world')
