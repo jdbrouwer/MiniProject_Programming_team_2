@@ -4,7 +4,7 @@ import sqlite3
 def SQL_Write_Films(Film_Name,Start_Time,End_Time,Date):
 
     #SQLlite database needs to be defined
-    sqlite_file = 'A File needs to be here'
+    sqlite_file = '..\db_project.sqlite'
 
     #initializing SQlite connector
     conn = sqlite3.connect(sqlite_file)
