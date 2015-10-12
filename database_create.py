@@ -1,4 +1,4 @@
-__author__ = 'Jochem'
+#creert een database voor het gebruik van de applicatie. Dit script creert de database.
 
 import sqlite3
 #het opslaan van de sql database in /PATH/project_db.sqlite
@@ -14,6 +14,7 @@ c = conn.cursor()
 #aanmaken van User tabel
 conn.execute('''CREATE TABLE User
                 (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                Name STRING NOT NULL
                 E_mail STRING UNIQUE NOT NULL,
                 Ticket_code STRING UNIQUE,
                 Gekozen_Film STRING,
@@ -24,7 +25,7 @@ conn.execute('''CREATE TABLE User
 conn.execute('''CREATE TABLE Providers
                 (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 E_mail STRING NOT NULL UNIQUE,
-                ProviderName,
+                ProviderName STRING NOT NULL,
                 Film STRING NOT NULL);''')
 
 #aanmaken van film database
