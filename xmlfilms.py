@@ -7,7 +7,7 @@ def datum():
     i = datetime.datetime.now()
     date = ("%s-%s-%s" % (i.day, i.month, i.year) )
     return date
-
+#wwdfewef
 
 def schrijf_xml(data):
     bestand = open('filmlijst.xml', 'w')
