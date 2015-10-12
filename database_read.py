@@ -4,6 +4,8 @@ import sqlite3
 #het opslaan van de sql database in /PATH/project_db.sqlite
 #path comment jacob D:\HU_DATA\Python_miniproject\db_project.sqlite
 
+
+#sqlite_file = 'C:\Documenten\HBO-ICT\Python project\database\db_project.sqlite'
 sqlite_file = 'D:\HU_DATA\Python_miniproject\db_project.sqlite'
 #connect python en sql
 conn = sqlite3.connect(sqlite_file)
