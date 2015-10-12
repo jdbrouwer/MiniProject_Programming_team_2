@@ -1,8 +1,9 @@
 __author__ = 'Jochem'
 
 import sqlite3
+#eerst een project.sqlite aanmaken
 #het opslaan van de sql database in /PATH/project_db.sqlite
-sqlite_file = '/Users/Sebastian/Desktop/my_db.sqlite'
+sqlite_file = 'C:\Documenten\HBO-ICT\Python project\database\db_project.sqlite'
 #connect python en sql
 conn = sqlite3.connect(sqlite_file)
 c = conn.cursor()
