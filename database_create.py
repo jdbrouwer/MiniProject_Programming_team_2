@@ -14,12 +14,12 @@ c = conn.cursor()
 #aanmaken van User tabel
 conn.execute('''CREATE TABLE User
                 (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                Name STRING NOT NULL
+                Name STRING NOT NULL,
                 E_mail STRING UNIQUE NOT NULL,
                 Ticket_code STRING UNIQUE,
                 Gekozen_Film STRING,
-                StartTime_Film,
-                Date_Film);''')
+                StartTime_Film STRING,
+                Date_Film STRING);''')
 
 #aanmaken van Provider Tabel
 conn.execute('''CREATE TABLE Providers
