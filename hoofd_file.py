@@ -96,7 +96,7 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
             position = Name_Film.index(e)
             conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
                         VALUES (?,?,?,?)''',(Name_Film[position],Start[position],End[position],Date_of_Film[position]))
-    except IOError:
+    except:
             print("Could not write to database, Check if lists are being passed to this function")
 
     finally:
@@ -118,7 +118,7 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
             position = user_name.index(e)
             conn.execute('''INSERT INTO User (Film_Name, Start_time_Film, End_time_Film, Date)
                         VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film[position]))
-    except IOError:
+    except:
             print("Could not write to database, Check if lists are being passed to this function")
 
     finally:
