@@ -52,7 +52,6 @@ def list_begin_time(lijst):
             int(film['starttijd'])
         ).strftime('%H:%M:%S')
         list.append(bewerk)
-    print(list)
     return(list)
 
 def list_end_time(lijst):
@@ -63,18 +62,17 @@ def list_end_time(lijst):
             int(film['eindtijd'])
         ).strftime('%H:%M:%S')
         list.append(bewerk)
-    print(list)
     return(list)
 
 data_xml = read_xml()
 Film_Name = list_titels(data_xml)
 Start_Time = list_begin_time(data_xml)
-End_time = list_end_time(data_xml)
+End_Time = list_end_time(data_xml)
 Date = datum()
 
 #SQL PART
 
-def SQL_Write_Films(Film_Name,Start_Time,End_Time,Date):
+def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
 
     #SQLlite database needs to be defined
     sqlite_file = '..\db_project.sqlite'
@@ -82,10 +80,22 @@ def SQL_Write_Films(Film_Name,Start_Time,End_Time,Date):
     #initializing SQlite connector
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-
+    query = '''INSERT INTO Films (Film_Name, Start_time, End_time, Date) VALUES (?,?,?,?)''',(Film_Name,Start_Time,End_Time,Date)
     #executing query with variables that can be passed through to the function.
-    conn.execute('''INSERT INTO Films (Film_Name, Start_time, End_time, Date)
-                VALUES (?,?,?,?)''',(Film_Name,Start_Time,End_Time,Date))
-    conn.commit()
-    conn.close()
+        # conn.execute('''INSERT INTO Films (Film_Name, Start_time, End_time, Date)
+        #         VALUES (?,?,?,?)''',(Film_Name,Start_Time,End_Time,Date))
+    try:
+        for e in Film_Name:
+            position = Film_Name.index(e)
+            print(position)
+            print(query)
 
+    finally:
+            conn.commit()
+            conn.close()
+
+
+
+
+
+SQL_Write_Films(Film_Name,Start_Time,End_Time,Date)
