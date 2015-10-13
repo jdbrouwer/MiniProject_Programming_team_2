@@ -155,7 +155,7 @@ def loginButton():
             label_film = Label(film, text="Beschikbare films vandaag")
             label_film.grid(row=1)
             #voor het gemak ff een list
-            films = ["q", "e", "r"]
+            films =
             row = 2
             for i in films:
                 c = Checkbutton(film, text=i)
