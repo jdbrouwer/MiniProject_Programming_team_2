@@ -1,5 +1,5 @@
 #This is the main file of our python program
-import sqlite3, codecs, requests, datetime, xmltodict
+import sqlite3, codecs, requests, datetime, xmltodict, Interface_2
 from tkinter import *
 import tkinter.messagebox
 
@@ -96,8 +96,11 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
             position = Name_Film.index(e)
             conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
                         VALUES (?,?,?,?)''',(Name_Film[position],Start[position],End[position],Date_of_Film[position]))
-    except IOError:
-            print("Could not write to database, Check if lists are being passed to this function")
+
+#if inserting does not work because the rows are unique, update values.
+    except:
+            print("Updating database movie records")
+
 
     finally:
 
@@ -125,7 +128,7 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
         conn.close()
 
 
-def SQL_Select_Film():
+def SQL_Read_Film():
     ''' Read functions to show all databases into the film .'''
     sqlite_file = '..\db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
@@ -137,9 +140,7 @@ def SQL_Select_Film():
     for row in cursor:
         returnlist.append(row)
 
-
     return returnlist
-
 
 #Intergratie UI
 
@@ -242,7 +243,7 @@ def loginButton():
             label_film = Label(film, text="Beschikbare films vandaag")
             label_film.grid(row=1)
             #voor het gemak ff een list
-            films = []
+            films = ["2,3,4"]
             row = 2
             for i in films:
                 c = Checkbutton(film, text=i)
@@ -270,3 +271,4 @@ button_1.grid(row=2, column=1)
 
 
 root.mainloop()
+
