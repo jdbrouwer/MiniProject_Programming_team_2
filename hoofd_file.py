@@ -90,11 +90,10 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
 
-
     try:
+                #executing sql query for each item in films
         for e in Film_Name:
             position = Film_Name.index(e)
-        #executing sql query for each item in films
             conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
                         VALUES (?,?,?,?)''',(Film_Name[position],Start_Time[position],End_Time[position],Date[position]))
     except IOError:
