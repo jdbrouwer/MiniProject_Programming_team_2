@@ -3,49 +3,8 @@ import sqlite3, codecs, requests, datetime, xmltodict, Interface_2
 from tkinter import *
 import tkinter.messagebox
 
+#Intergratie database
 
-UI = Interface_2()
-
-root = Tk()
-i = UI(root)
-
-def loginButton():
-        """This function saves the login that is entered in the two entry's"""
-        def Movies():
-            """This function takes you to a new window with all available movies"""
-            film = Toplevel()
-            film.geometry("300x300")
-            label_film = Label(film, text="Beschikbare films vandaag")
-            label_film.grid(row=1)
-            #voor het gemak ff een list
-            films = ["q", "e", "r"]
-            row = 2
-            for i in films:
-                c = Checkbutton(film, text=i)
-                c.grid(row=row)
-                row +=1
-
-        teller = 1
-        In_database_2 = True
-        name = entry_1.get()
-        mail = entry_2.get()
-        print("Naam: ", name)
-        print("Mail: ", mail)
-        if In_database_2 == True:
-                tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-        elif In_database_2 != True:
-                tkinter.messagebox.show("Netflix à la 1900", "U bent een nieuwe klant, welkom!")
-        Movies()
-
-entry_1 = Entry(root)
-entry_2 = Entry(root)
-entry_1.grid(row=0, column=1)
-entry_2.grid(row=1, column=1)
-button_1 = Button(root, text="Inloggen", command=loginButton)
-button_1.grid(row=2, column=1)
-
-
-root.mainloop()
 #XML PART
 
 def datum():
@@ -179,4 +138,49 @@ def SQL_Select_Film():
         returnlist.append(row)
 
     return returnlist
+
+#Intergratie UI
+
+UI = Interface_2()
+
+root = Tk()
+i = UI(root)
+
+def loginButton():
+        """This function saves the login that is entered in the two entry's"""
+        def Movies():
+            """This function takes you to a new window with all available movies"""
+            film = Toplevel()
+            film.geometry("300x300")
+            label_film = Label(film, text="Beschikbare films vandaag")
+            label_film.grid(row=1)
+            #voor het gemak ff een list
+            films = ["q", "e", "r"]
+            row = 2
+            for i in films:
+                c = Checkbutton(film, text=i)
+                c.grid(row=row)
+                row +=1
+
+        teller = 1
+        In_database_2 = True
+        name = entry_1.get()
+        mail = entry_2.get()
+        print("Naam: ", name)
+        print("Mail: ", mail)
+        if In_database_2 == True:
+                tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
+        elif In_database_2 != True:
+                tkinter.messagebox.show("Netflix à la 1900", "U bent een nieuwe klant, welkom!")
+        Movies()
+
+entry_1 = Entry(root)
+entry_2 = Entry(root)
+entry_1.grid(row=0, column=1)
+entry_2.grid(row=1, column=1)
+button_1 = Button(root, text="Inloggen", command=loginButton)
+button_1.grid(row=2, column=1)
+
+
+root.mainloop()
 
