@@ -83,7 +83,7 @@ Date = xml_date(data_xml)
 
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
 
-    '''SQLlite database needs to be defined'''
+    '''Writing Films from the API to the SQLLite database.'''
     sqlite_file = '..\db_project.sqlite'
 
     '''initializing SQlite connector'''
@@ -105,9 +105,7 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
         conn.close()
 
 def SQL_Write_User(user_name,email,ticket_code,chosen_film):
-
-
-    '''initializing SQlite connector'''
+    '''Writing user information tot the database.'''
     sqlite_file = '..\db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
@@ -122,6 +120,24 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
             print("Could not write to database, Check if lists are being passed to this function")
 
     finally:
-        ''' closing connection '''
+        #closing connection
         conn.commit()
         conn.close()
+
+
+def SQL_Select_Film():
+    ''' Read functions to show all databases into the film .'''
+    sqlite_file = '..\db_project.sqlite'
+    conn = sqlite3.connect(sqlite_file)
+    c= conn.cursor()
+
+    cursor = conn.execute("SELECT Film_Name , Start_Time_Film, End_Time_Film, Date from Films")
+
+    returnlist = []
+    for row in cursor:
+        returnlist.append(row)
+
+    return returnlist
+
+
+
