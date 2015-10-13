@@ -98,13 +98,11 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
             print(End_Time[position])
             print(Date[position])
         #executing sql query for each item in films
-            conn.execute('''INSERT INTO Films (Film_Name, Start_time, End_time, Date)
+            conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
                         VALUES (?,?,?,?)''',(Film_Name[position],Start_Time[position],End_Time[position],Date[position]))
     finally:
             conn.commit()
             conn.close()
-
-
 
 
 
