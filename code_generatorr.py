@@ -1,4 +1,4 @@
-name = input("what s your name")
+name = input("what is your name")
 mail = input("what is your mail")
 film = input("whats is the movie")
 starttijd = input("time 1")
