@@ -79,7 +79,7 @@ Start_Time = list_begin_time(data_xml)
 End_Time = list_end_time(data_xml)
 Date = xml_date(data_xml)
 
-#SQL PART
+'''SQL PART'''
 
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
 
@@ -100,16 +100,15 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
             print("Could not write to database, Check if lists are being passed to this function")
 
     finally:
-        ''' closing connection '''
+
         conn.commit()
         conn.close()
 
+def SQL_Write_User(user_name,email,ticket_code,chosen_film):
 
-def SQL_Write_User(user_name, email, ticket_code, chosen_film):
-    '''SQLlite database needs to be defined'''
-    sqlite_file = '..\db_project.sqlite'
 
     '''initializing SQlite connector'''
+    sqlite_file = '..\db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
 
