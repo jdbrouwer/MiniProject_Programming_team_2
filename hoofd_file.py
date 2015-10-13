@@ -133,7 +133,7 @@ def SQL_Select_Film():
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
 
-    cursor = conn.execute("SELECT Film_Name , Start_Time_Film, End_Time_Film, Date from Films")
+    cursor = conn.execute("SELECT Film_Name , Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
 
     returnlist = []
     for row in cursor:
