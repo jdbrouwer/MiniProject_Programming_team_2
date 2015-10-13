@@ -45,11 +45,13 @@ class Interface:
     def aanbiederInlog(self):
         """This function checks if the supplier is in the database"""
         In_database = True
+        #Database opvragen of de login goed is
         if In_database == True:
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
             film_a = Toplevel()
             film_a.geometry("600x400")
             label_test = Label(film_a, text="Hier komen de films van de aanbieder")
+            #In de database gegevens van specifieke gebruiker
             label_test.grid(row=1)
             """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
             with all the customers"""
@@ -82,20 +84,25 @@ class Interface:
         button_3 = Button(aan, text="Inloggen", command=loginButton_1)
         button_3.grid(row=2, column=1)
 
-    def Movies(self):
-        """This function takes you to a new window with all available movies"""
-        t = loginButton()
-        if t == 2:
-            film = Toplevel()
-            film.geometry("300x300")
+
 
 root = Tk()
 i = Interface(root)
 
 def loginButton():
         """This function saves the login that is entered in the two entry's"""
+        def ticket(filmnaam):
+                ticket1 = Toplevel()
+                ticket1.geometry("600x400")
+                label_ticket = Label(ticket1, text=filmnaam)
+                label_ticket.grid(row=1)
+                print(filmnaam)
+
+
+
         def Movies():
             """This function takes you to a new window with all available movies"""
+
             film = Toplevel()
             film.geometry("300x300")
             label_film = Label(film, text="Beschikbare films vandaag")
@@ -103,10 +110,13 @@ def loginButton():
             #voor het gemak ff een list
             films = ["q", "e", "r"]
             row = 2
-            for i in films:
-                c = Checkbutton(film, text=i)
+            for filmnaam in films:
+                c = Button(film, text=filmnaam, command=(lambda filmen=filmnaam: ticket(filmen)))
                 c.grid(row=row)
                 row +=1
+
+
+
 
         teller = 1
         In_database_2 = True
@@ -114,9 +124,9 @@ def loginButton():
         mail = entry_2.get()
         print("Naam: ", name)
         print("Mail: ", mail)
-        if In_database_2 == True:
+        if In_database_2 is True:
                 tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-        elif In_database_2 != True:
+        else:
                 tkinter.messagebox.show("Netflix à la 1900", "U bent een nieuwe klant, welkom!")
         Movies()
 
