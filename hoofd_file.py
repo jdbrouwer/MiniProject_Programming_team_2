@@ -69,7 +69,7 @@ def list_end_time(lijst):
 data_xml = read_xml()
 Film_Name = list_titels(data_xml)
 Start_Time = list_begin_time(data_xml)
-End_time = list_end_time(data_xml)
+End_Time = list_end_time(data_xml)
 Date = datum()
 
 #SQL PART
