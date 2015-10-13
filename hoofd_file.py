@@ -30,41 +30,47 @@ def apicall():
     schrijf_xml(response.text)
 
 def read_xml():
+    #this function makes it so that the xml file can acctually be read like string
     bestand = open('filmlijst.xml', 'r')
     xml_string= bestand.read()
     return xmltodict.parse(xml_string)
 
+#The functions below are used to create lists for titels, begin time and start time
+
 def list_titels(lijst):
+    #Here, the titles of the lists are added to a list
     list = []
     for film in lijst['filmsoptv']['film']:
         list.append(film['titel'])
     return(list)
 
 def list_begin_time(lijst):
+    #The begin times which are listed in the xml files will be put into a list
     list = []
     for film in lijst['filmsoptv']['film']:
         bewerk = datetime.datetime.fromtimestamp(
             int(film['starttijd'])
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        ).strftime('%H:%M:%S')
         list.append(bewerk)
     print(list)
     return(list)
 
-def list_eind_time(lijst):
+def list_end_time(lijst):
+    #The end times which are listed in the xml files will be put into a list
     list = []
     for film in lijst['filmsoptv']['film']:
         bewerk = datetime.datetime.fromtimestamp(
             int(film['eindtijd'])
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        ).strftime('%H:%M:%S')
         list.append(bewerk)
     print(list)
     return(list)
 
 data_xml = read_xml()
-titel_lijst = list_titels(data_xml)
-begin_tijd = list_begin_time(data_xml)
-eind_tijd = list_eind_time(data_xml)
-
+Film_Name = list_titels(data_xml)
+Start_Time = list_begin_time(data_xml)
+End_time = list_end_time(data_xml)
+Date = datum()
 
 #SQL PART
 

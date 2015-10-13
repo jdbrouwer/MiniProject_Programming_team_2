@@ -41,7 +41,7 @@ def list_begin_time(lijst):
     for film in lijst['filmsoptv']['film']:
         bewerk = datetime.datetime.fromtimestamp(
             int(film['starttijd'])
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        ).strftime('%H:%M:%S')
         list.append(bewerk)
     print(list)
     return(list)
@@ -51,7 +51,7 @@ def list_eind_time(lijst):
     for film in lijst['filmsoptv']['film']:
         bewerk = datetime.datetime.fromtimestamp(
             int(film['eindtijd'])
-        ).strftime('%Y-%m-%d %H:%M:%S')
+        ).strftime('%H:%M:%S')
         list.append(bewerk)
     print(list)
     return(list)
