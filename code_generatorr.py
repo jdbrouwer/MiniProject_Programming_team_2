@@ -1,3 +1,7 @@
+import PyQRCode
+
+
+
 name = input("what is your name")
 mail = input("what is your mail")
 film = input("whats is the movie")
@@ -21,7 +25,12 @@ def codegenerator(name, mail, film, starttijd):
         gen_mail.append(change_h)
         gen_mail_2 = gen_mail[:4] + gen_mail[-4:]
         gen_done_mail = ''.join(gen_mail_2)
-    e_ticket_clean = gen_done_name +gen_done_mail+ film + starttijd
-    print(e_ticket_clean)
+    e_ticket = gen_done_name +gen_done_mail+ film + starttijd
+    print(e_ticket)
+    return e_ticket
 
-codegenerator(name, mail, film, starttijd)
+def qr_code(e_ticket):
+    savecode= PyQRCode.create(e_ticket, error='L', version=27, mode='binary')
+    savecode.png('code.png', scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
+qr_code(codegenerator(name, mail, film, starttijd))
+
