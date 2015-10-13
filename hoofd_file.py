@@ -35,7 +35,7 @@ def read_xml():
     xml_string= bestand.read()
     return xmltodict.parse(xml_string)
 
-'''The functions below are used to create lists for titels, begin time and start time'''
+#The functions below are used to create lists for titels, begin time and start time
 
 def list_titels(lijst):
     '''Here, the titles of the lists are added to a list'''
