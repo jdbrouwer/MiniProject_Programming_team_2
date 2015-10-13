@@ -108,7 +108,7 @@ def loginButton():
             label_film = Label(film, text="Beschikbare films vandaag")
             label_film.grid(row=1)
             #voor het gemak ff een list
-            films = ["q", "e", "r"]
+            films = hoofd_file.SQL_Select_Film()
             row = 2
             for filmnaam in films:
                 c = Button(film, text=filmnaam, command=(lambda filmen=filmnaam: ticket(filmen)))

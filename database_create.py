@@ -28,13 +28,14 @@ conn.execute('''CREATE TABLE Providers
                 ProviderName STRING NOT NULL,
                 Film STRING NOT NULL);''')
 
-#aanmaken van film database
+#aanmaken van film Tabel
 conn.execute('''CREATE TABLE Films
                 (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 Film_Name STRING NOT NULL,
                 Start_Time_Film TIME,
                 End_Time_Film TIME,
-                Date DATE);''')
+                Date DATE,
+                UNIQUE (Film_Name,Start_Time_Film,End_time_Film,Date));''')
 
 
 print('Committing to database')
