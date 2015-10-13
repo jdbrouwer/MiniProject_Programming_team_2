@@ -4,12 +4,14 @@ import datetime
 import xmltodict
 
 def datum():
+    #This function specifies the current date, this date is used in the request url
     i = datetime.datetime.now()
     date = ("%s-%s-%s" % (i.day, i.month, i.year) )
     return date
-#wwdfewef
+
 
 def schrijf_xml(data):
+    #This function opens filmlijst.xml and writes it into a local xml file
     bestand = open('filmlijst.xml', 'w')
     bestand = codecs.open('filmlijst.xml', "w", "utf-8")
     bestand.write(str(data))
@@ -17,6 +19,7 @@ def schrijf_xml(data):
 
 
 def apicall():
+    #this function transfers data from the filmtotaal server, by using API, into the schrijf_xml function
     date = datum()
     response = requests.get('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=zmp3tnvbezlo4gbl4bh0mkro5e63xzkb&dag='+date+'&sorteer=0')
     response.encoding='utf-8'
