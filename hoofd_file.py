@@ -91,7 +91,7 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
     c= conn.cursor()
 
     try:
-                #executing sql query for each item in films
+#executing sql query for each item in films
         for e in Film_Name:
             position = Film_Name.index(e)
             conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
@@ -100,7 +100,8 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
             print("Could not write to database, Check if lists are being passed to this function")
 
     finally:
-            conn.commit()
-            conn.close()
+        ''' closing connection '''
+        conn.commit()
+        conn.close()
 
 
