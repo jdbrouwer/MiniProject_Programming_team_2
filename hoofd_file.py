@@ -44,6 +44,15 @@ def list_titels(lijst):
         list.append(film['titel'])
     return(list)
 
+def xml_date(lijst):
+    list = []
+    for film in lijst['filmsoptv']['film']:
+        bewerk = datetime.datetime.fromtimestamp(
+            int(film['starttijd'])
+        ).strftime('%Y-%m-%d')
+        list.append(bewerk)
+    return(list)
+
 def list_begin_time(lijst):
     #The begin times which are listed in the xml files will be put into a list
     list = []
@@ -68,7 +77,7 @@ data_xml = read_xml()
 Film_Name = list_titels(data_xml)
 Start_Time = list_begin_time(data_xml)
 End_Time = list_end_time(data_xml)
-Date = datum()
+Date = xml_date(data_xml)
 
 #SQL PART
 
@@ -80,22 +89,19 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
     #initializing SQlite connector
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-    query = '''INSERT INTO Films (Film_Name, Start_time, End_time, Date) VALUES (?,?,?,?)''',(Film_Name,Start_Time,End_Time,Date)
-    #executing query with variables that can be passed through to the function.
-        # conn.execute('''INSERT INTO Films (Film_Name, Start_time, End_time, Date)
-        #         VALUES (?,?,?,?)''',(Film_Name,Start_Time,End_Time,Date))
+
     try:
+#executing sql query for each item in films
         for e in Film_Name:
             position = Film_Name.index(e)
-            print(position)
-            print(query)
+            conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
+                        VALUES (?,?,?,?)''',(Film_Name[position],Start_Time[position],End_Time[position],Date[position]))
+    except IOError:
+            print("Could not write to database, Check if lists are being passed to this function")
 
     finally:
-            conn.commit()
-            conn.close()
+        ''' closing connection '''
+        conn.commit()
+        conn.close()
 
 
-
-
-
-SQL_Write_Films(Film_Name,Start_Time,End_Time,Date)
