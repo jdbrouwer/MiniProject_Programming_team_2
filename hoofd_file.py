@@ -73,6 +73,8 @@ def list_end_time(lijst):
         list.append(bewerk)
     return(list)
 
+#Creating the proper data from the API. (used to write to the database)
+apicall()
 data_xml = read_xml()
 Film_Name = list_titels(data_xml)
 Start_Time = list_begin_time(data_xml)
