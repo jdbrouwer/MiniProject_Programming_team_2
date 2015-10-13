@@ -89,16 +89,17 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
     #initializing SQlite connector
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-    query = '''INSERT INTO Films (Film_Name, Start_time, End_time, Date) VALUES (?,?,?,?)''',(Film_Name,Start_Time,End_Time,Date)
-    #executing query with variables that can be passed through to the function.
-        # conn.execute('''INSERT INTO Films (Film_Name, Start_time, End_time, Date)
-        #         VALUES (?,?,?,?)''',(Film_Name,Start_Time,End_Time,Date))
+
     try:
         for e in Film_Name:
             position = Film_Name.index(e)
-            print(position)
-            print(query)
-
+            print(Film_Name[position])
+            print(Start_Time[position])
+            print(End_Time[position])
+            print(Date[position])
+        #executing sql query for each item in films
+            conn.execute('''INSERT INTO Films (Film_Name, Start_time, End_time, Date)
+                        VALUES (?,?,?,?)''',(Film_Name[position],Start_Time[position],End_Time[position],Date[position]))
     finally:
             conn.commit()
             conn.close()
