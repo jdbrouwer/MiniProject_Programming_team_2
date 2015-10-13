@@ -44,6 +44,15 @@ def list_titels(lijst):
         list.append(film['titel'])
     return(list)
 
+def xml_date(lijst):
+    list = []
+    for film in lijst['filmsoptv']['film']:
+        bewerk = datetime.datetime.fromtimestamp(
+            int(film['starttijd'])
+        ).strftime('%Y-%m-%d')
+        list.append(bewerk)
+    return(list)
+
 def list_begin_time(lijst):
     #The begin times which are listed in the xml files will be put into a list
     list = []
@@ -68,7 +77,7 @@ data_xml = read_xml()
 Film_Name = list_titels(data_xml)
 Start_Time = list_begin_time(data_xml)
 End_Time = list_end_time(data_xml)
-Date = datum()
+Date = xml_date(data_xml)
 
 #SQL PART
 

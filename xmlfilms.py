@@ -56,10 +56,20 @@ def list_eind_time(lijst):
     print(list)
     return(list)
 
+def xml_date(lijst):
+    list = []
+    for film in lijst['filmsoptv']['film']:
+        bewerk = datetime.datetime.fromtimestamp(
+            int(film['starttijd'])
+        ).strftime('%Y-%m-%d')
+        list.append(bewerk)
+    print(list)
+    return(list)
+
 data_xml = read_xml()
 titel_lijst = list_titels(data_xml)
 begin_tijd = list_begin_time(data_xml)
 eind_tijd = list_eind_time(data_xml)
-
+Date = xml_date(data_xml)
 
 apicall()
