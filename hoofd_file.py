@@ -20,6 +20,7 @@ def schrijf_xml(data):
     bestand.write(str(data))
     bestand.close()
 
+
 def apicall():
     '''this function transfers data from the filmtotaal server, by using API, into the schrijf_xml function'''
     date = datum()
@@ -177,9 +178,11 @@ def SQL_Write_Provider(email,password,providername,film):
 
     try:
 #executing sql query for each item in fuser
-
+        for e in provider_name:
+            stap = provider_name.index(e)
+            print(email[stap],password,providername[stap],film[stap])
             conn.execute('''INSERT INTO Providers (E_mail, Password, ProviderName, Film)
-                        VALUES (?,?,?,?)''',(email,password,providername,film))
+                        VALUES (?,?,?,?)''',(email[stap],'Welkom1',providername[stap],film[random.randint(0, len(provider_name))]))
     except:
             print("Could not write to provider table, Check if lists are being passed to this function")
 
@@ -200,6 +203,9 @@ def SQL_Select_Film():
 
 
     return returnlist
+
+
+
 
 def codegenerator(name, mail, film, starttijd):
     """
@@ -224,10 +230,11 @@ def codegenerator(name, mail, film, starttijd):
     return e_ticket
 
 
+
 #SQL execution of code.
 SQL_Check_DB_Directory()
 SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
-
+SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
 
 
