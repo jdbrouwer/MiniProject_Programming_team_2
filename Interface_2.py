@@ -91,7 +91,7 @@ class Interface:
                 row +=1
         name = entry_1.get()
         mail = entry_2.get()
-        hoofd_file.SQL_Write_User(name,mail,'11111111','henk', '05:00:00', '2015-11-02')
+        hoofd_file.SQL_Write_User(name,mail, '11111111','henk', '05:00:00', '2015-11-13')
         if name == "" and mail == "":
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
@@ -99,8 +99,11 @@ class Interface:
         Movies()
 
 
+
+
 root = Tk()
 i = Interface(root)
+
 
 entry_1 = Entry(root)
 entry_2 = Entry(root)
@@ -108,3 +111,6 @@ entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
 Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
 root.mainloop()
+
+a = i.loginButton().name
+print (a)

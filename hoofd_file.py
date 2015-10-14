@@ -153,6 +153,7 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
         conn.commit()
         conn.close()
 
+
 def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_time, chosen_film_date):
     '''Writing user information tot the database.'''
     sqlite_file = 'Database/db_project.sqlite'
