@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter.messagebox
 import hoofd_file
+from PIL import Image, ImageTk
 
 class Interface:
 
