@@ -118,7 +118,7 @@ def SQL_Create_Database():
                         Name STRING NOT NULL,
                         E_mail STRING UNIQUE NOT NULL,
                         Ticket_code STRING UNIQUE,
-                        Gekozen_Film STRING,
+                        Choosen_Film STRING,
                         StartTime_Film STRING,
                         Date_Film STRING);''')
 
