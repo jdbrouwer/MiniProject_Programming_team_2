@@ -1,9 +1,6 @@
 from tkinter import *
 import tkinter.messagebox
 import hoofd_file
-import code_generatorr
-from PIL import Image, ImageTk
-import pyqrcode
 
 class Interface:
 
@@ -65,13 +62,11 @@ i = Interface(root)
 def loginButton():
         """This function saves the login that is entered in the two entry's"""
         def ticket(filmnaam):
-                naam_film = filmnaam[0]
-                starttijd = filmnaam[1]
-                ticket_code = code_generatorr.codegenerator(name,mail,naam_film,starttijd)
-                url = pyqrcode.create(ticket_code)
-                url.png("qrcode.jpg", scale=5)
-                print(url.terminal(quiet_zone=1))
-
+                ticket1 = Toplevel()
+                ticket1.geometry("600x400")
+                Label(ticket1, text=filmnaam).grid(row=1)
+                print(filmnaam)
+            #code generator moet hier!!
         def Movies():
             """This function takes you to a new window with all available movies"""
             film = Toplevel()
@@ -87,6 +82,7 @@ def loginButton():
                 row +=1
         name = entry_1.get()
         mail = entry_2.get()
+
         if name == "" and mail == "":
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
