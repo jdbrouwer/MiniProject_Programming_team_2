@@ -110,10 +110,10 @@ def SQL_Create_Database():
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                         Name STRING NOT NULL,
                         E_mail STRING  NOT NULL,
-                        Ticket_code STRING UNIQUE,
+                        Ticket_code INTEGER UNIQUE,
                         Chosen_Film STRING,
-                        StartTime_Film STRING,
-                        Date_Film STRING);''')
+                        StartTime_Film TIME,
+                        Date_Film DATE);''')
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
