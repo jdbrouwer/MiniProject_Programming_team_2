@@ -93,9 +93,13 @@ root = Tk()
 i = Interface(root)
 
 
+
 entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
 Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
 root.mainloop()
+
+a = i.loginButton().name
+print (a)
