@@ -206,7 +206,6 @@ def SQL_Select_Film():
 
     return returnlist
 
-
 #SQL execution of code.
 SQL_Check_DB_Directory()
 SQL_Create_Database()
