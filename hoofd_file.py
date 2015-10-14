@@ -152,7 +152,7 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
             conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
                         VALUES (?,?,?,?)''',(Name_Film[position],Start[position],End[position],Date_of_Film[position]))
     except:
-            print("Could not write to database, Check if lists are being passed to this function")
+            print("Could not write to Table films, Check if lists are being passed to this function")
     finally:
         conn.commit()
         conn.close()
@@ -166,10 +166,10 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
 #executing sql query for each item in fuser
         for e in user_name:
             position = user_name.index(e)
-            conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Gekozen_Film, StartTime_Film, Date_Film)
+            conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Choosen_Film, StartTime_Film, Date_Film)
                         VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film_name[position], chosen_film_time[position], chosen_film_date[position]))
     except:
-            print("Could not write to database, Check if lists are being passed to this function")
+            print("Could not write to Table users, Check if lists are being passed to this function")
     finally:
         #closing connection
         conn.commit()
@@ -187,7 +187,7 @@ def SQL_Write_Provider(name, email):
             conn.execute('''INSERT INTO Providers (E_mail, ProviderName, Film)
                         VALUES (?,?,?,?)''', email[position],(name[position]))
     except:
-            print("Could not write to database, Check if lists are being passed to this function")
+            print("Could not write to provider table, Check if lists are being passed to this function")
 
     finally:
         #closing connection
