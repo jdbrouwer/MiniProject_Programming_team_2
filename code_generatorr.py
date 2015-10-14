@@ -2,10 +2,7 @@
 import pyqrcode
 from tkinter import *
 from PIL import Image, ImageTk
-name = input("what is your name")
-mail = input("what is your mail")
-film = input("whats is the movie")
-starttijd = input("time 1")
+
 
 def codegenerator(name, mail, film, starttijd):
     """
@@ -44,4 +41,3 @@ def qrcode(data_qr):
 
     root.mainloop()
 
-qrcode(codegenerator(name, mail, film, starttijd))
