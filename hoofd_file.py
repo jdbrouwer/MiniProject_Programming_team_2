@@ -213,6 +213,7 @@ def SQL_Write_Provider(name, email):
         conn.close()
 
 
+
 def SQL_Select_Film():
     ''' Read functions to show all databases into the film .'''
     sqlite_file = 'Database/db_project.sqlite'
