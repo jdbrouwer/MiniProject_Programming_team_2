@@ -41,7 +41,7 @@ class Interface:
 
     def aanbiederSite(self):
         """This function opens a new window with a site for the film suppliers """
-        def loginButton_1():
+        def loginButton_provider(self):
             """This function does the same as loginButton but for a different page"""
             name_s = entry_3.get()
             mail_s = entry_4.get()
@@ -54,13 +54,10 @@ class Interface:
         entry_3.grid(row=0, column=1)
         entry_4 = Entry(aan)
         entry_4.grid(row=1, column=1)
-        Button(aan, text="Inloggen", command=loginButton_1).grid(row=2,column=1)
+        Button(aan, text="Inloggen", command=loginButton_provider).grid(row=2,column=1)
 
-root = Tk()
-i = Interface(root)
-
-def loginButton():
-        """This function saves the login that is entered in the two entry's"""
+    def loginButton(self):
+    #This function saves the login that is entered in the two entry's#
         def ticket(filmnaam):
                 ticket1 = Toplevel()
                 ticket1.geometry("600x400")
@@ -87,7 +84,13 @@ def loginButton():
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-            Movies()
+        Movies()
+
+
+root = Tk()
+i = Interface(root)
+
+
 
 
 
@@ -97,5 +100,5 @@ entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
-Button(root, text="Inloggen", command=loginButton).grid(row=2,column=1)
+Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
 root.mainloop()
