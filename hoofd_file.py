@@ -117,7 +117,7 @@ def SQL_Create_Database():
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        E_mail STRING NOT NULL UNIQUE
+                        E_mail STRING NOT NULL UNIQUE,
                         Password STRING NOT NULL,
                         ProviderName STRING NOT NULL,
                         Film STRING NOT NULL);''')
