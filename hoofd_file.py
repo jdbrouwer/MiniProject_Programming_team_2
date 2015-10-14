@@ -114,7 +114,7 @@ def SQL_Create_Database():
                         Choosen_Film STRING,
                         StartTime_Film STRING,
                         Date_Film STRING,
-                         UNIQUE (Name,E_Mail);''')
+                         UNIQUE (Name,E_Mail));''')
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -205,6 +205,7 @@ def SQL_Select_Film():
 
 
     return returnlist
+
 
 #SQL execution of code.
 SQL_Check_DB_Directory()
