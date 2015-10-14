@@ -111,7 +111,7 @@ def SQL_Create_Database():
                         Name STRING NOT NULL,
                         E_mail STRING  NOT NULL,
                         Ticket_code STRING UNIQUE,
-                        Choosen_Film STRING,
+                        Chosen_Film STRING,
                         StartTime_Film STRING,
                         Date_Film STRING);''')
         #aanmaken van Provider Tabel
@@ -162,7 +162,7 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
 #executing sql query for each item in fuser
         for e in user_name:
             position = user_name.index(e)
-            conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Choosen_Film, StartTime_Film, Date_Film)
+            conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Chosen_Film, StartTime_Film, Date_Film)
                         VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film_name[position], chosen_film_time[position], chosen_film_date[position]))
     except:
             print("Could not write to Table users, Check if lists are being passed to this function")
@@ -189,8 +189,6 @@ def SQL_Write_Provider(name, email):
         #closing connection
         conn.commit()
         conn.close()
-
-
 
 def SQL_Select_Film():
     ''' Read functions to show all databases into the film .'''
