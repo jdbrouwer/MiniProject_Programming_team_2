@@ -66,6 +66,7 @@ def loginButton():
                 ticket1.geometry("600x400")
                 Label(ticket1, text=filmnaam).grid(row=1)
                 print(filmnaam)
+            #code generator moet hier!!
         def Movies():
             """This function takes you to a new window with all available movies"""
             film = Toplevel()
@@ -82,13 +83,12 @@ def loginButton():
         In_database_2 = True
         name = entry_1.get()
         mail = entry_2.get()
-        print("Naam: ", name)
-        print("Mail: ", mail)
-        if In_database_2 is True:
-                tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
+
+        if name == "" and mail == "":
+            tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
-                tkinter.messagebox.show("Netflix à la 1900", "U bent een nieuwe klant, welkom!")
-        Movies()
+            tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
+            Movies()
 
 entry_1 = Entry(root)
 entry_2 = Entry(root)
