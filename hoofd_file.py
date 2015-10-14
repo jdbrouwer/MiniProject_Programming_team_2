@@ -13,14 +13,12 @@ def datum():
     date = ("%s-%s-%s" % (i.day, i.month, i.year) )
     return date
 
-
 def schrijf_xml(data):
     '''This function opens filmlijst.xml and writes it into a local xml file'''
     bestand = open('filmlijst.xml', 'w')
     bestand = codecs.open('filmlijst.xml', "w", "utf-8")
     bestand.write(str(data))
     bestand.close()
-
 
 def apicall():
     '''this function transfers data from the filmtotaal server, by using API, into the schrijf_xml function'''
@@ -36,7 +34,6 @@ def read_xml():
     return xmltodict.parse(xml_string)
 
 #The functions below are used to create lists for titels, begin time and start time
-
 def list_titels(lijst):
     '''Here, the titles of the lists are added to a list'''
     list = []
@@ -146,11 +143,6 @@ def SQL_Create_Database():
 
 #SQL CREATING DATABASE HERE:
 
-SQL_Check_DB_Directory()
-SQL_Create_Database()
-
-
-
 
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
 
@@ -175,8 +167,6 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
         conn.commit()
         conn.close()
 
-SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
-
 def SQL_Write_User(user_name,email,ticket_code,chosen_film):
     '''Writing user information tot the database.'''
     sqlite_file = 'Database/db_project.sqlite'
@@ -197,7 +187,6 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
         conn.commit()
         conn.close()
 
-
 def SQL_Select_Film():
     ''' Read functions to show all databases into the film .'''
     sqlite_file = 'Database/db_project.sqlite'
@@ -212,6 +201,13 @@ def SQL_Select_Film():
 
 
     return returnlist
+
+
+#SQL execution of code.
+SQL_Check_DB_Directory()
+SQL_Create_Database()
+SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
+
 
 
 #Intergratie UI
