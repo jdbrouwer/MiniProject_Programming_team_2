@@ -62,25 +62,48 @@ class Interface:
         naam_film = filmnaam[0]
         begintijd = filmnaam[1]
         ticket_code = hoofd_file.codegenerator(username,email,naam_film,begintijd)
-        print(ticket_code)
-        url = pyqrcode.create(ticket_code)
-        url.png("qrcode.png", scale=10)
+        #url = pyqrcode.create(ticket_code)
+        # url.png("qrcode.png", scale=10)
+        #schrijft de ticket informatie naar de database
+        hoofd_file.SQL_Write_User(username,email, ticket_code,filmnaam[0], filmnaam[1], filmnaam[3])
 
-    def Movies(self,ticket):
+        #weergeeft de ticketcode in de UI
+        ticketcode_schem = Toplevel()
+        ticketcode_schem.geometry("500x150")
+        Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande").grid(row=1)
+        Label(ticketcode_schem,text = ticket_code).grid(row=2)
+
+
+
+    def Movies(self, name, mail):
         """This function takes you to a new window with all available movies"""
+        film_window = Toplevel()
+        film_window.geometry("300x300")
+        label_film = Label(film_window, text="Beschikbare films vandaag")
+        label_film.grid(row=1)
+        #voor het gemak ff een list
+        films_query = hoofd_file.SQL_Select_Film()
+        row = 2
+        for filmnaam in films_query:
+            c = Button(film_window, text=filmnaam, command=(lambda filmen=filmnaam: self.ticket(filmen,name,mail)))
+            c.grid(row=row, sticky=W)
+            row +=1
+
+    def loginButton(self):
+    #This function saves the login that is entered in the two entry's#
         name = entry_1.get()
         mail = entry_2.get()
-        hoofd_file.SQL_Write_User(name,mail, '11111111','henk', '05:00:00', '2015-11-13')
         if name == "" and mail == "":
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
+            self.Movies(name,mail)
+
+#tijdelijke kladblok
+#
 
 
     def QRCode_printen(self):
-        """
-        This function places the QR-code
-        """
         QR = Toplevel()
         canvas_1 = Canvas(QR, width=400, height=400)
         canvas_1.pack()
@@ -88,7 +111,7 @@ class Interface:
         canvas_image= ImageTk.PhotoImage(img)
         canvas_1.create_image(0,0,image=canvas_image,anchor="nw")
 
-        #code generator moet hier!!
+       #code generator moet hier!!
 
 root = Tk()
 i = Interface(root)
@@ -98,5 +121,5 @@ entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
-Button(root, text="Inloggen", command=i.Movies()).grid(row=2,column=1)
+Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
 root.mainloop()
