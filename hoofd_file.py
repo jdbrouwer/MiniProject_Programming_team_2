@@ -1,7 +1,5 @@
 #This is the main file of our python program
 import sqlite3, codecs, requests, datetime, xmltodict, os
-from tkinter import *
-import tkinter.messagebox
 
 #Intergratie database
 
@@ -84,17 +82,12 @@ Date = xml_date(data_xml)
 '''SQL PART'''
 
 def SQL_Check_DB_Directory():
-    '''
-    Checks the existence of the database and its folder, If database does not exist, it will create one.
-    '''
-
+    '''Checks the existence of the database and its folder, If database does not exist, it will create one.'''
     Database_Folder = 'Database'
 #checks if the directory already exists, if it does not, it will throw an exception. (Which will usually be because of insufficent permissions)
-
     if not os.path.exists(Database_Folder):
         try:
             os.makedirs(Database_Folder)
-
         except PermissionError:
             print("Cannot create required directory, Aborting!")
 
@@ -102,8 +95,6 @@ def SQL_Create_Database():
     '''
     creates the database required for the program. Should be used in conjunction with SQL_Check_Database to make sure database does not already exist
     '''
-
-
     sqlite_file = 'Database/db_project.sqlite'
     #connect python en sql
     conn = sqlite3.connect(sqlite_file)
@@ -118,14 +109,12 @@ def SQL_Create_Database():
                         Gekozen_Film STRING,
                         StartTime_Film STRING,
                         Date_Film STRING);''')
-
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                         E_mail STRING NOT NULL UNIQUE,
                         ProviderName STRING NOT NULL,
                         Film STRING NOT NULL);''')
-
         #aanmaken van film Tabel
         conn.execute('''CREATE TABLE Films
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -134,33 +123,23 @@ def SQL_Create_Database():
                         End_Time_Film TIME,
                         Date DATE,
                         UNIQUE (Film_Name,Start_Time_Film,End_time_Film,Date));''')
-
         print('Committing to database')
         conn.commit()
         conn.close()
-
         print("Database created Succesfully")
-
     except:
         print("Database cannot be created, It might already exist...")
 
 #SQL CREATING DATABASE HERE:
-
 SQL_Check_DB_Directory()
 SQL_Create_Database()
 
-
-
-
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
-
     '''Writing Films from the API to the SQLLite database.'''
     sqlite_file = 'Database/db_project.sqlite'
-
     '''initializing SQlite connector'''
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-
     try:
 #executing sql query for each item in films
         for e in Name_Film:
@@ -169,9 +148,7 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
                         VALUES (?,?,?,?)''',(Name_Film[position],Start[position],End[position],Date_of_Film[position]))
     except:
             print("Could not write to database, Check if lists are being passed to this function")
-
     finally:
-
         conn.commit()
         conn.close()
 
@@ -182,7 +159,6 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-
     try:
 #executing sql query for each item in fuser
         for e in user_name:
@@ -191,7 +167,6 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
                         VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film[position]))
     except:
             print("Could not write to database, Check if lists are being passed to this function")
-
     finally:
         #closing connection
         conn.commit()
@@ -203,9 +178,7 @@ def SQL_Select_Film():
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-
     cursor = conn.execute("SELECT Film_Name , Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
-
     returnlist = []
     for row in cursor:
         returnlist.append(row)
