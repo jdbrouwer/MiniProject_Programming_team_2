@@ -117,7 +117,8 @@ def SQL_Create_Database():
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                        E_mail STRING NOT NULL UNIQUE,
+                        E_mail STRING NOT NULL UNIQUE
+                        Password STRING NOT NULL,
                         ProviderName STRING NOT NULL,
                         Film STRING NOT NULL);''')
         #aanmaken van film Tabel
@@ -180,7 +181,7 @@ def SQL_Write_Provider(name, email):
         for e in name:
             position = name.index(e)
             conn.execute('''INSERT INTO Providers (E_mail, ProviderName, Film)
-                        VALUES (?,?,?,?)''', email[position],(name[position]))
+                        VALUES (?,?,?)''', email[position],(name[position]))
     except:
             print("Could not write to provider table, Check if lists are being passed to this function")
 
@@ -201,6 +202,11 @@ def SQL_Select_Film():
 
 
     return returnlist
+
+
+
+
+
 
 def codegenerator(name, mail, film, starttijd):
     """
