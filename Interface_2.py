@@ -88,13 +88,10 @@ class Interface:
         Movies()
 
 
+
+
 root = Tk()
 i = Interface(root)
-
-
-
-
-
 
 
 entry_1 = Entry(root)
