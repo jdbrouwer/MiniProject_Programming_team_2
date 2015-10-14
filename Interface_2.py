@@ -58,37 +58,30 @@ class Interface:
         entry_4.grid(row=1, column=1)
         Button(aan, text="Inloggen", command=loginButton_provider).grid(row=2,column=1)
 
+    def ticket(filmnaam,username,email):
+        naam_film = filmnaam[0]
+        begintijd = filmnaam[1]
+        ticket_code = hoofd_file.codegenerator(username,email,naam_film,begintijd)
+        print(ticket_code)
+        url = pyqrcode.create(ticket_code)
+        url.png("qrcode.png", scale=10)
+
+    def Movies(self,ticket):
+        """This function takes you to a new window with all available movies"""
+        film_window = Toplevel()
+        film_window.geometry("300x300")
+        label_film = Label(film_window, text="Beschikbare films vandaag")
+        label_film.grid(row=1)
+        #voor het gemak ff een list
+        films_query = hoofd_file.SQL_Select_Film()
+        row = 2
+        for filmnaam in films_query:
+            c = Button(film_window, text=filmnaam, command=(lambda filmen=filmnaam: ticket(filmen)))
+            c.grid(row=row, sticky=W)
+            row +=1
+
     def loginButton(self):
     #This function saves the login that is entered in the two entry's#
-        def ticket(filmnaam):
-                naam_film = filmnaam[0]
-                begintijd = filmnaam[1]
-                ticket_code = hoofd_file.codegenerator(name,mail,naam_film,begintijd)
-                print(ticket_code)
-                url = pyqrcode.create(ticket_code)
-                url.png("qrcode.png", scale=10)
-                def QRCode_printen():
-                    QR = Toplevel()
-                    canvas_1 = Canvas(QR, width=400, height=400)
-                    canvas_1.pack()
-                    img = Image.open("qrcode.png")
-                    canvas_image= ImageTk.PhotoImage(img)
-                    canvas_1.create_image(0,0,image=canvas_image,anchor="nw")
-
-            #code generator moet hier!!
-        def Movies():
-            """This function takes you to a new window with all available movies"""
-            film = Toplevel()
-            film.geometry("300x300")
-            label_film = Label(film, text="Beschikbare films vandaag")
-            label_film.grid(row=1)
-            #voor het gemak ff een list
-            films = hoofd_file.SQL_Select_Film()
-            row = 2
-            for filmnaam in films:
-                c = Button(film, text=filmnaam, command=(lambda filmen=filmnaam: ticket(filmen)))
-                c.grid(row=row, sticky=W)
-                row +=1
         name = entry_1.get()
         mail = entry_2.get()
         hoofd_file.SQL_Write_User(name,mail, '11111111','henk', '05:00:00', '2015-11-13')
@@ -96,10 +89,17 @@ class Interface:
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-        Movies()
 
 
+    def QRCode_printen(self):
+        QR = Toplevel()
+        canvas_1 = Canvas(QR, width=400, height=400)
+        canvas_1.pack()
+        img = Image.open("qrcode.png")
+        canvas_image= ImageTk.PhotoImage(img)
+        canvas_1.create_image(0,0,image=canvas_image,anchor="nw")
 
+        #code generator moet hier!!
 
 root = Tk()
 i = Interface(root)
@@ -111,6 +111,3 @@ entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
 Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
 root.mainloop()
-
-a = i.loginButton().name
-print (a)
