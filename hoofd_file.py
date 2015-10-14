@@ -173,7 +173,7 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
         conn.commit()
         conn.close()
 
-def SQL_Write_User(user_name,email,ticket_code,chosen_film):
+def SQL_Write_User(user_name,email,ticket_code,chosen_film_name,chosen_film_time,chosen_film_date):
     '''Writing user information tot the database.'''
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
@@ -183,8 +183,8 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
 #executing sql query for each item in fuser
         for e in user_name:
             position = user_name.index(e)
-            conn.execute('''INSERT INTO User (Film_Name, Start_time_Film, End_time_Film, Date)
-                        VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film[position]))
+            conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Gekozen_Film, StartTime_Film, Date_Film)
+                        VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film_name[position], chosen_film_time[position], chosen_film_date[position]))
     except:
             print("Could not write to database, Check if lists are being passed to this function")
 
@@ -347,15 +347,18 @@ def loginButton():
 
         teller = 1
         In_database_2 = True
-        name = entry_1.get()
-        mail = entry_2.get()
-        print("Naam: ", name)
-        print("Mail: ", mail)
+        global username
+        global mail_address
+        username = entry_1.get()
+        mail_address = entry_2.get()
+        print("Naam: ", username)
+        print("Mail: ", mail_address)
         if In_database_2 == True:
                 tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
         elif In_database_2 != True:
                 tkinter.messagebox.show("Netflix à la 1900", "U bent een nieuwe klant, welkom!")
         Movies()
+
 
 entry_1 = Entry(root)
 entry_2 = Entry(root)
@@ -365,4 +368,8 @@ button_1 = Button(root, text="Inloggen", command=loginButton)
 button_1.grid(row=2, column=1)
 
 
+
 root.mainloop()
+
+SQL_Write_User(username,mail_address,'111111','1','1','1')
+                                                        #chosen_film_name,chosen_film_time,chosen_film_date
