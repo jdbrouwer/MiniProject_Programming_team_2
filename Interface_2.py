@@ -67,6 +67,14 @@ class Interface:
         #schrijft de ticket informatie naar de database
         hoofd_file.SQL_Write_User(username,email, ticket_code,filmnaam[0], filmnaam[1], filmnaam[3])
 
+        #weergeeft de ticketcode in de UI
+        ticketcode_schem = Toplevel()
+        ticketcode_schem.geometry("500x150")
+        Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande").grid(row=1)
+        Label(ticketcode_schem,text = ticket_code).grid(row=2)
+
+
+
     def Movies(self, name, mail):
         """This function takes you to a new window with all available movies"""
         film_window = Toplevel()
