@@ -13,7 +13,6 @@ def datum():
     date = ("%s-%s-%s" % (i.day, i.month, i.year) )
     return date
 
-
 def schrijf_xml(data):
     '''This function opens filmlijst.xml and writes it into a local xml file'''
     bestand = open('filmlijst.xml', 'w')
@@ -110,11 +109,12 @@ def SQL_Create_Database():
         conn.execute('''CREATE TABLE User
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                         Name STRING NOT NULL,
-                        E_mail STRING UNIQUE NOT NULL,
+                        E_mail STRING  NOT NULL,
                         Ticket_code STRING UNIQUE,
                         Choosen_Film STRING,
                         StartTime_Film STRING,
-                        Date_Film STRING);''')
+                        Date_Film STRING,
+                         UNIQUE (Name,E_Mail);''')
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
