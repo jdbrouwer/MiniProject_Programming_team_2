@@ -80,7 +80,6 @@ def loginButton():
                 c = Button(film, text=filmnaam, command=(lambda filmen=filmnaam: ticket(filmen)))
                 c.grid(row=row, sticky=W)
                 row +=1
-        In_database_2 = True
         name = entry_1.get()
         mail = entry_2.get()
         hoofd_file.SQL_Write_User(name,mail,'11111111','henk', '02', '52')
@@ -89,6 +88,8 @@ def loginButton():
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
             Movies()
+
+
 
 entry_1 = Entry(root)
 entry_2 = Entry(root)
