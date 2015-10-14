@@ -82,7 +82,7 @@ def loginButton():
                 row +=1
         name = entry_1.get()
         mail = entry_2.get()
-        hoofd_file.SQL_Write_User(name,mail,'11111111','henk', '02', '52')
+        hoofd_file.SQL_Write_User(name,mail, '11111111','henk', '05:00:00', '2015-11-13')
         if name == "" and mail == "":
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
