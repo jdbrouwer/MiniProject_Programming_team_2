@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter.messagebox
 import hoofd_file
 from PIL import Image, ImageTk
+import pyqrcode
 
 class Interface:
 
@@ -63,16 +64,17 @@ class Interface:
                 naam_film = filmnaam[0]
                 begintijd = filmnaam[1]
                 ticket_code = hoofd_file.codegenerator(name,mail,naam_film,begintijd)
+                print(ticket_code)
                 url = pyqrcode.create(ticket_code)
                 url.png("qrcode.png", scale=10)
                 def QRCode_printen():
                     QR = Toplevel()
-                    load = Image.open("qrcode.png")
-                    render = ImageTk.PhotoImage(load)
-                    img = Label(QR,image=render)
-                    img.image = render
-                    img.place(x=0,y=0)
-                QRCode_printen()
+                    canvas_1 = Canvas(QR, width=400, height=400)
+                    canvas_1.pack()
+                    img = Image.open("qrcode.png")
+                    canvas_image= ImageTk.PhotoImage(img)
+                    canvas_1.create_image(0,0,image=canvas_image,anchor="nw")
+
             #code generator moet hier!!
         def Movies():
             """This function takes you to a new window with all available movies"""
@@ -89,7 +91,7 @@ class Interface:
                 row +=1
         name = entry_1.get()
         mail = entry_2.get()
-        hoofd_file.SQL_Write_User(name,mail,'11111111','henk', '02', '52')
+        hoofd_file.SQL_Write_User(name,mail,'11111111','henk', '05:00:00', '2015-11-02')
         if name == "" and mail == "":
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
@@ -99,12 +101,6 @@ class Interface:
 
 root = Tk()
 i = Interface(root)
-
-
-
-
-
-
 
 entry_1 = Entry(root)
 entry_2 = Entry(root)
