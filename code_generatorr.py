@@ -1,7 +1,7 @@
-import PyQRCode
 
-
-
+import pyqrcode
+from tkinter import *
+from PIL import Image, ImageTk
 name = input("what is your name")
 mail = input("what is your mail")
 film = input("whats is the movie")
@@ -28,9 +28,20 @@ def codegenerator(name, mail, film, starttijd):
     e_ticket = gen_done_name +gen_done_mail+ film + starttijd
     print(e_ticket)
     return e_ticket
+def qrcode(data_qr):
 
-def qr_code(e_ticket):
-    savecode= PyQRCode.create(e_ticket, error='L', version=27, mode='binary')
-    savecode.png('code.png', scale=6, module_color=[0, 0, 0, 128], background=[0xff, 0xff, 0xcc])
-qr_code(codegenerator(name, mail, film, starttijd))
 
+    root = Tk()
+    root.geometry("500x500")
+    url = pyqrcode.create(data_qr)
+    url.png("qrcode.png", scale=10)
+    print(url.terminal(quiet_zone=1))
+    load = Image.open("qrcode.png")
+    render = ImageTk.PhotoImage(load)
+    img = Label(root,image=render)
+    img.image = render
+    img.place(x=0,y=0)
+
+    root.mainloop()
+
+qrcode(codegenerator(name, mail, film, starttijd))

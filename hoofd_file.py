@@ -13,12 +13,14 @@ def datum():
     date = ("%s-%s-%s" % (i.day, i.month, i.year) )
     return date
 
+
 def schrijf_xml(data):
     '''This function opens filmlijst.xml and writes it into a local xml file'''
     bestand = open('filmlijst.xml', 'w')
     bestand = codecs.open('filmlijst.xml', "w", "utf-8")
     bestand.write(str(data))
     bestand.close()
+
 
 def apicall():
     '''this function transfers data from the filmtotaal server, by using API, into the schrijf_xml function'''
@@ -69,6 +71,10 @@ def list_end_time(lijst):
         ).strftime('%H:%M:%S')
         list.append(bewerk)
     return(list)
+
+#list with providers and a list with e-mails
+provider_name = ['Elmo Tilo', 'Andreas Fabian', 'Merten Bertram', 'Meinrad Severin', 'David Bernhard', 'Vinzent Timotheus']
+provider_email = ['elmo.tilo@gmail.com', 'andreas.fabian@gmail.com', 'merten.bertram@gmail.com', 'mainrad.severin@gmail.com', 'david.bernhard@gmail.com', 'vinzent.timotheus@gmail.com']
 
 #Creating the proper data from the API. (used to write to the database)
 apicall()
@@ -186,6 +192,26 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
         #closing connection
         conn.commit()
         conn.close()
+
+def SQL_Write_Provider(name, email):
+    sqlite_file = 'Database/db_project.sqlite'
+    conn = sqlite3.connect(sqlite_file)
+    c= conn.cursor()
+
+    try:
+#executing sql query for each item in fuser
+        for e in name:
+            position = name.index(e)
+            conn.execute('''INSERT INTO Providers (E_mail, ProviderName, Film)
+                        VALUES (?,?,?,?)''', email[position],(name[position]))
+    except:
+            print("Could not write to database, Check if lists are being passed to this function")
+
+    finally:
+        #closing connection
+        conn.commit()
+        conn.close()
+
 
 def SQL_Select_Film():
     ''' Read functions to show all databases into the film .'''
