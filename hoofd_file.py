@@ -135,10 +135,6 @@ def SQL_Create_Database():
     except:
         print("Database cannot be created, It might already exist...")
 
-#SQL CREATING DATABASE HERE:
-SQL_Check_DB_Directory()
-SQL_Create_Database()
-
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
     '''Writing Films from the API to the SQLLite database.'''
     sqlite_file = 'Database/db_project.sqlite'
