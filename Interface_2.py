@@ -83,12 +83,14 @@ def loginButton():
                 row +=1
         name = entry_1.get()
         mail = entry_2.get()
-
+        hoofd_file.SQL_Write_User(name,mail,'11111111','henk', '02', '52')
         if name == "" and mail == "":
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
             Movies()
+
+
 
 
 
@@ -98,4 +100,3 @@ entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
 Button(root, text="Inloggen", command=loginButton).grid(row=2,column=1)
 root.mainloop()
-

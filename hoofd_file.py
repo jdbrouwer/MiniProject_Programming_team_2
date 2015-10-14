@@ -158,16 +158,16 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-    try:
+    #try:
 #executing sql query for each item in fuser
-            conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Chosen_Film, StartTime_Film, Date_Film)
-                        VALUES (?,?,?,?)''',(user_name,email,ticket_code,chosen_film_name,chosen_film_time,chosen_film_date))
-    except:
-            print("Could not write to Table users, Check if lists are being passed to this function")
-    finally:
+    conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Chosen_Film, StartTime_Film, Date_Film)
+            VALUES (?,?,?,?,?,?)''',(user_name,email,ticket_code,chosen_film_name,chosen_film_time,chosen_film_date))
+    #except:
+           # print("Could not write to Table users, Check if lists are being passed to this function")
+   # finally:
         #closing connection
-        conn.commit()
-        conn.close()
+    conn.commit()
+    conn.close()
 
 def SQL_Write_Provider(name, email):
     sqlite_file = 'Database/db_project.sqlite'
