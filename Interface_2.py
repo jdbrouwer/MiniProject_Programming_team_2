@@ -60,10 +60,19 @@ class Interface:
     def loginButton(self):
     #This function saves the login that is entered in the two entry's#
         def ticket(filmnaam):
-                ticket1 = Toplevel()
-                ticket1.geometry("600x400")
-                Label(ticket1, text=filmnaam).grid(row=1)
-                print(filmnaam)
+                naam_film = filmnaam[0]
+                begintijd = filmnaam[1]
+                ticket_code = hoofd_file.codegenerator(name,mail,naam_film,begintijd)
+                url = pyqrcode.create(ticket_code)
+                url.png("qrcode.png", scale=10)
+                def QRCode_printen():
+                    QR = Toplevel()
+                    load = Image.open("qrcode.png")
+                    render = ImageTk.PhotoImage(load)
+                    img = Label(QR,image=render)
+                    img.image = render
+                    img.place(x=0,y=0)
+                QRCode_printen()
             #code generator moet hier!!
         def Movies():
             """This function takes you to a new window with all available movies"""
@@ -88,10 +97,13 @@ class Interface:
         Movies()
 
 
-
-
 root = Tk()
 i = Interface(root)
+
+
+
+
+
 
 
 entry_1 = Entry(root)
