@@ -1,9 +1,23 @@
 from tkinter import *
-
+import tkinter.messagebox
 
 class Interface:
 
     def __init__(self):
+ """This is the main function for the interface, all the graphic related things are in this function"""
+        master.wm_title("Netflix à la 1900")
+        master.geometry("310x400")
+        taakbalk = Menu(master)
+        master.config(menu=taakbalk)
+        subMenu = Menu(taakbalk)
+        taakbalk.add_cascade(label="About", menu=subMenu)
+        subMenu.add_command(label="Help", command=self.Help)
+        Label(master, text="Naam").grid(row=0,sticky=E)
+        Label(master, text="E-mailadres").grid(row=1,sticky=E)
+        canvas = Canvas(master, width=300, height=325)
+        canvas.grid(row=4,column=0,columnspan=3)
+        canvas.create_rectangle(0,0,370,350, fill="black")
+        Button(master,text="Site voor aanbieders", command=self.aanbiederSite).grid(row=1,column=2,columnspan=1)
 
 
 
