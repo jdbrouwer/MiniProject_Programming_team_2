@@ -75,7 +75,7 @@ def list_end_time(lijst):
 #list with providers and a list with e-mails
 provider_name = ['Elmo Tilo', 'Andreas Fabian', 'Merten Bertram', 'Meinrad Severin', 'David Bernhard', 'Vinzent Timotheus']
 provider_email = ['elmo.tilo@gmail.com', 'andreas.fabian@gmail.com', 'merten.bertram@gmail.com', 'mainrad.severin@gmail.com', 'david.bernhard@gmail.com', 'vinzent.timotheus@gmail.com']
-
+provider_password = 'Welkom01'
 #Creating the proper data from the API. (used to write to the database)
 apicall()
 data_xml = read_xml()
@@ -171,17 +171,16 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
     conn.commit()
     conn.close()
 
-def SQL_Write_Provider(name, email):
+def SQL_Write_Provider(email,password,providername,film):
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c = conn.cursor()
 
     try:
 #executing sql query for each item in fuser
-        for e in name:
-            position = name.index(e)
-            conn.execute('''INSERT INTO Providers (E_mail, ProviderName, Film)
-                        VALUES (?,?,?)''', email[position],(name[position]))
+
+            conn.execute('''INSERT INTO Providers (E_mail, Password, ProviderName, Film)
+                        VALUES (?,?,?,?)''',(email,password,providername,film))
     except:
             print("Could not write to provider table, Check if lists are being passed to this function")
 
