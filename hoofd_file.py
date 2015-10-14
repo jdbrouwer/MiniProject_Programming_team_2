@@ -1,7 +1,5 @@
 #This is the main file of our python program
 import sqlite3, codecs, requests, datetime, xmltodict, os
-from tkinter import *
-import tkinter.messagebox
 
 #Intergratie database
 
@@ -36,6 +34,7 @@ def read_xml():
     return xmltodict.parse(xml_string)
 
 #The functions below are used to create lists for titels, begin time and start time
+
 def list_titels(lijst):
     '''Here, the titles of the lists are added to a list'''
     list = []
@@ -72,10 +71,6 @@ def list_end_time(lijst):
         list.append(bewerk)
     return(list)
 
-#list with providers and a list with e-mails
-provider_name = ['Elmo Tilo', 'Andreas Fabian', 'Merten Bertram', 'Meinrad Severin', 'David Bernhard', 'Vinzent Timotheus']
-provider_email = ['elmo.tilo@gmail.com', 'andreas.fabian@gmail.com', 'merten.bertram@gmail.com', 'mainrad.severin@gmail.com', 'david.bernhard@gmail.com', 'vinzent.timotheus@gmail.com']
-
 #Creating the proper data from the API. (used to write to the database)
 apicall()
 data_xml = read_xml()
@@ -87,17 +82,12 @@ Date = xml_date(data_xml)
 '''SQL PART'''
 
 def SQL_Check_DB_Directory():
-    '''
-    Checks the existence of the database and its folder, If database does not exist, it will create one.
-    '''
-
+    '''Checks the existence of the database and its folder, If database does not exist, it will create one.'''
     Database_Folder = 'Database'
 #checks if the directory already exists, if it does not, it will throw an exception. (Which will usually be because of insufficent permissions)
-
     if not os.path.exists(Database_Folder):
         try:
             os.makedirs(Database_Folder)
-
         except PermissionError:
             print("Cannot create required directory, Aborting!")
 
@@ -105,8 +95,6 @@ def SQL_Create_Database():
     '''
     creates the database required for the program. Should be used in conjunction with SQL_Check_Database to make sure database does not already exist
     '''
-
-
     sqlite_file = 'Database/db_project.sqlite'
     #connect python en sql
     conn = sqlite3.connect(sqlite_file)
@@ -121,14 +109,12 @@ def SQL_Create_Database():
                         Choosen_Film STRING,
                         StartTime_Film STRING,
                         Date_Film STRING);''')
-
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                         E_mail STRING NOT NULL UNIQUE,
                         ProviderName STRING NOT NULL,
                         Film STRING NOT NULL);''')
-
         #aanmaken van film Tabel
         conn.execute('''CREATE TABLE Films
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -137,28 +123,23 @@ def SQL_Create_Database():
                         End_Time_Film TIME,
                         Date DATE,
                         UNIQUE (Film_Name,Start_Time_Film,End_time_Film,Date));''')
-
         print('Committing to database')
         conn.commit()
         conn.close()
-
         print("Database created Succesfully")
-
     except:
         print("Database cannot be created, It might already exist...")
 
 #SQL CREATING DATABASE HERE:
-
+SQL_Check_DB_Directory()
+SQL_Create_Database()
 
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
-
     '''Writing Films from the API to the SQLLite database.'''
     sqlite_file = 'Database/db_project.sqlite'
-
     '''initializing SQlite connector'''
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-
     try:
 #executing sql query for each item in films
         for e in Name_Film:
@@ -167,18 +148,17 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
                         VALUES (?,?,?,?)''',(Name_Film[position],Start[position],End[position],Date_of_Film[position]))
     except:
             print("Could not write to database, Check if lists are being passed to this function")
-
     finally:
-
         conn.commit()
         conn.close()
+
+SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 
 def SQL_Write_User(user_name,email,ticket_code,chosen_film):
     '''Writing user information tot the database.'''
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-
     try:
 #executing sql query for each item in fuser
         for e in user_name:
@@ -187,31 +167,10 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
                         VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film[position]))
     except:
             print("Could not write to database, Check if lists are being passed to this function")
-
     finally:
         #closing connection
         conn.commit()
         conn.close()
-
-def SQL_Write_Provider(name, email):
-    sqlite_file = 'Database/db_project.sqlite'
-    conn = sqlite3.connect(sqlite_file)
-    c= conn.cursor()
-
-    try:
-#executing sql query for each item in fuser
-        for e in name:
-            position = name.index(e)
-            conn.execute('''INSERT INTO Providers (E_mail, ProviderName, Film)
-                        VALUES (?,?,?,?)''', email[position],(name[position]))
-    except:
-            print("Could not write to database, Check if lists are being passed to this function")
-
-    finally:
-        #closing connection
-        conn.commit()
-        conn.close()
-
 
 
 def SQL_Select_Film():
@@ -219,150 +178,10 @@ def SQL_Select_Film():
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-
     cursor = conn.execute("SELECT Film_Name , Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
-
     returnlist = []
     for row in cursor:
         returnlist.append(row)
 
 
     return returnlist
-
-
-#SQL execution of code.
-SQL_Check_DB_Directory()
-SQL_Create_Database()
-SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
-
-
-
-#Intergratie UI
-
-class Interface:
-
-    def __init__(self, master):
-        """This is the main function for the interface, all the graphic related things are in this function"""
-        master.wm_title("Netflix à la 1900")
-        master.geometry("600x400")
-
-        taakbalk = Menu(master)
-        master.config(menu=taakbalk)
-        subMenu = Menu(taakbalk)
-        taakbalk.add_cascade(label="About", menu=subMenu)
-        subMenu.add_command(label="Help", command=self.Help)
-
-        label_naam = Label(master, text="Naam")
-        label_email = Label(master, text="E-mailadres")
-        label_space = Label(master, text="                               ")
-        label_naam.grid(row=0, sticky=E)
-        label_email.grid(row=1, sticky=E)
-        label_space.grid(row=4, column=2)
-
-        info_text = Label(root, text="Met deze applicatie kunt u zich opgeven voor een film \n bij één van de aanbieders. "
-                             "Voer uw naam en \n e-mailadres in en kies een film om te bezoeken \n ")
-        info_text.grid(row=4, column=0 , rowspan=5, columnspan=5, sticky=W)
-
-        canvas = Canvas(master, width=300, height=325)
-        canvas.grid(row=4, column=3)
-        canvas.create_rectangle(0,0,350,350, fill="black")
-
-        button_2 = Button(master,text="Site voor aanbieders", command=self.aanbiederSite)
-        button_2.grid(row=1, column=3)
-
-    def Help(self):
-        """This function opens a new window with information regardinng the helpdesk
-        of the application"""
-        win = Toplevel()
-        win.geometry("200x200")
-        message = "Welkom bij de helpdesk"
-        labelhelp = Label(win, text=message)
-        labelhelp.grid(row=1)
-
-    def aanbiederInlog(self):
-        """This function checks if the supplier is in the database"""
-        In_database = True
-        if In_database == True:
-            tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
-            film_a = Toplevel()
-            film_a.geometry("600x400")
-            label_test = Label(film_a, text="Hier komen de films van de aanbieder")
-            label_test.grid(row=1)
-            """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
-            with all the customers"""
-        elif In_database != True:
-            tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
-
-    def aanbiederSite(self):
-        """This function opens a new window with a site for the film suppliers """
-        def loginButton_1():
-            """This function does the same as loginButton but for a different page"""
-            name_s = entry_3.get()
-            mail_s = entry_4.get()
-            print(name_s)
-            print(mail_s)
-            self.aanbiederInlog()
-
-
-        aan = Toplevel()
-        aan.geometry("200x100")
-
-        label_naam = Label(aan, text="Naam")
-        label_email = Label(aan, text="E-mailadres")
-        label_naam.grid(row=0, sticky=E)
-        label_email.grid(row=1, sticky=E)
-
-        entry_3 = Entry(aan)
-        entry_4 = Entry(aan)
-        entry_3.grid(row=0, column=1)
-        entry_4.grid(row=1, column=1)
-        button_3 = Button(aan, text="Inloggen", command=loginButton_1)
-        button_3.grid(row=2, column=1)
-
-    def Movies(self):
-        """This function takes you to a new window with all available movies"""
-        t = loginButton()
-        if t == 2:
-            film = Toplevel()
-            film.geometry("300x300")
-
-root = Tk()
-i = Interface(root)
-
-def loginButton():
-        """This function saves the login that is entered in the two entry's"""
-        def Movies():
-            """This function takes you to a new window with all available movies"""
-            film = Toplevel()
-            film.geometry("300x300")
-            label_film = Label(film, text="Beschikbare films vandaag")
-            label_film.grid(row=1)
-            #voor het gemak ff een list
-            films = SQL_Select_Film()
-            row = 2
-            for i in films:
-                c = Checkbutton(film, text=i)
-                c.grid(row=row)
-                row +=1
-
-        teller = 1
-        In_database_2 = True
-        name = entry_1.get()
-        mail = entry_2.get()
-        print("Naam: ", name)
-        print("Mail: ", mail)
-        if In_database_2 == True:
-                tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-        elif In_database_2 != True:
-                tkinter.messagebox.show("Netflix à la 1900", "U bent een nieuwe klant, welkom!")
-        Movies()
-
-entry_1 = Entry(root)
-entry_2 = Entry(root)
-entry_1.grid(row=0, column=1)
-entry_2.grid(row=1, column=1)
-button_1 = Button(root, text="Inloggen", command=loginButton)
-button_1.grid(row=2, column=1)
-
-
-root.mainloop()

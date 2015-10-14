@@ -1,21 +1,28 @@
 from tkinter import *
 
 
-def Help():
-    """This function opens a new window with information regarding the helpdesk"""
-    win = Toplevel()
-    win.geometry("400x400")
-    message = "Welkom bij de Helpdesk"
-    label1 = Label(win, text=message)
-    label1.pack()
+class Interface:
 
-def loginButton():
-    """This function activates when the loginbutton is clicked and saves
-    the information"""
-    naam = entry_1.get()
-    mail = entry_2.get()
-    print("Naam is: ", naam)
-    print("Mail is: ", mail)
+    def __init__(self):
+
+
+
+
+    def Help():
+        """This function opens a new window with information regarding the helpdesk"""
+        win = Toplevel()
+        win.geometry("400x400")
+        message = "Welkom bij de Helpdesk"
+        label1 = Label(win, text=message)
+        label1.pack()
+
+    def loginButton():
+        """This function activates when the loginbutton is clicked and saves
+        the information"""
+        naam = entry_1.get()
+        mail = entry_2.get()
+        print("Naam is: ", naam)
+        print("Mail is: ", mail)
 
 
 root = Tk()
