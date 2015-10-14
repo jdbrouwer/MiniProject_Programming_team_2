@@ -200,8 +200,17 @@ def SQL_Select_Film():
     returnlist = []
     for row in cursor:
         returnlist.append(row)
+    return returnlist
 
-
+def SQL_Select_Provider():
+    ''' Read functions to show all databases into the film .'''
+    sqlite_file = 'Database/db_project.sqlite'
+    conn = sqlite3.connect(sqlite_file)
+    c= conn.cursor()
+    cursor = conn.execute("SELECT Film FROM Providers")
+    returnlist = []
+    for row in cursor:
+        returnlist.append(row)
     return returnlist
 
 
@@ -236,4 +245,8 @@ SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
 
+# def provided_films():
+#     for f in Film_Name:
+#         for p in SQL_Select_Provider():
+#             if f == p:
 
