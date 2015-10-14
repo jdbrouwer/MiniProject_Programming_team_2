@@ -30,7 +30,7 @@ def apicall():
     schrijf_xml(response.text)
 
 def read_xml():
-    '''this function makes it so that the xml file can acctually be read like string'''
+    '''this function makes it so that the xml file can actually be read like string'''
     bestand = open('filmlijst.xml', 'r')
     xml_string= bestand.read()
     return xmltodict.parse(xml_string)
@@ -72,6 +72,10 @@ def list_end_time(lijst):
         ).strftime('%H:%M:%S')
         list.append(bewerk)
     return(list)
+
+#list with providers and a list with e-mails
+provider_name = ['Elmo Tilo', 'Andreas Fabian', 'Merten Bertram', 'Meinrad Severin', 'David Bernhard', 'Vinzent Timotheus']
+provider_email = ['elmo.tilo@gmail.com', 'andreas.fabian@gmail.com', 'merten.bertram@gmail.com', 'mainrad.severin@gmail.com', 'david.bernhard@gmail.com', 'vinzent.timotheus@gmail.com']
 
 #Creating the proper data from the API. (used to write to the database)
 apicall()
@@ -189,6 +193,25 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film):
             position = user_name.index(e)
             conn.execute('''INSERT INTO User (Film_Name, Start_time_Film, End_time_Film, Date)
                         VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film[position]))
+    except:
+            print("Could not write to database, Check if lists are being passed to this function")
+
+    finally:
+        #closing connection
+        conn.commit()
+        conn.close()
+
+def SQL_Write_Provider(name, email):
+    sqlite_file = 'Database/db_project.sqlite'
+    conn = sqlite3.connect(sqlite_file)
+    c= conn.cursor()
+
+    try:
+#executing sql query for each item in fuser
+        for e in name:
+            position = name.index(e)
+            conn.execute('''INSERT INTO Providers (E_mail, ProviderName, Film)
+                        VALUES (?,?,?,?)''', email[position],(name[position]))
     except:
             print("Could not write to database, Check if lists are being passed to this function")
 
