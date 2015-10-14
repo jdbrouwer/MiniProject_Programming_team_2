@@ -110,7 +110,7 @@ def SQL_Create_Database():
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                         Name STRING NOT NULL,
                         E_mail STRING  NOT NULL,
-                        Ticket_code INTEGER UNIQUE,
+                        Ticket_code INTEGERUNIQUE,
                         Chosen_Film STRING,
                         StartTime_Film TIME,
                         Date_Film DATE);''')
@@ -160,10 +160,8 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
     c= conn.cursor()
     try:
 #executing sql query for each item in fuser
-        for e in user_name:
-            position = user_name.index(e)
             conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Chosen_Film, StartTime_Film, Date_Film)
-                        VALUES (?,?,?,?)''',(user_name[position],email[position],ticket_code[position],chosen_film_name[position], chosen_film_time[position], chosen_film_date[position]))
+                        VALUES (?,?,?,?)''',(user_name,email,ticket_code,chosen_film_name,chosen_film_time,chosen_film_date))
     except:
             print("Could not write to Table users, Check if lists are being passed to this function")
     finally:
