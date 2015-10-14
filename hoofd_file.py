@@ -1,5 +1,5 @@
 #This is the main file of our python program
-import sqlite3, codecs, requests, datetime, xmltodict, os, random
+import sqlite3, codecs, requests, datetime, xmltodict, os
 from tkinter import *
 import tkinter.messagebox
 
@@ -212,6 +212,7 @@ def SQL_Select_Provider():
     for row in cursor:
         returnlist.append(row)
     return returnlist
+
 
 
 
