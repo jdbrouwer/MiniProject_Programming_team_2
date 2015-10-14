@@ -1,61 +1,42 @@
 from tkinter import *
 import tkinter.messagebox
-
+import hoofd_file
 
 class Interface:
 
     def __init__(self, master):
         """This is the main function for the interface, all the graphic related things are in this function"""
         master.wm_title("Netflix à la 1900")
-        master.geometry("600x400")
-
+        master.geometry("310x400")
         taakbalk = Menu(master)
         master.config(menu=taakbalk)
         subMenu = Menu(taakbalk)
         taakbalk.add_cascade(label="About", menu=subMenu)
         subMenu.add_command(label="Help", command=self.Help)
-
-        label_naam = Label(master, text="Naam")
-        label_email = Label(master, text="E-mailadres")
-        label_space = Label(master, text="                               ")
-        label_naam.grid(row=0, sticky=E)
-        label_email.grid(row=1, sticky=E)
-        label_space.grid(row=4, column=2)
-
-        info_text = Label(root, text="Met deze applicatie kunt u zich opgeven voor een film \n bij één van de aanbieders. "
-                             "Voer uw naam en \n e-mailadres in en kies een film om te bezoeken \n ")
-        info_text.grid(row=4, column=0 , rowspan=5, columnspan=5, sticky=W)
-
+        Label(master, text="Naam").grid(row=0,sticky=E)
+        Label(master, text="E-mailadres").grid(row=1,sticky=E)
         canvas = Canvas(master, width=300, height=325)
-        canvas.grid(row=4, column=3)
-        canvas.create_rectangle(0,0,350,350, fill="black")
-
-        button_2 = Button(master,text="Site voor aanbieders", command=self.aanbiederSite)
-        button_2.grid(row=1, column=3)
+        canvas.grid(row=4,column=0,columnspan=3)
+        canvas.create_rectangle(0,0,370,350, fill="black")
+        Button(master,text="Site voor aanbieders", command=self.aanbiederSite).grid(row=1,column=2,columnspan=1)
 
     def Help(self):
-        """This function opens a new window with information regardinng the helpdesk
-        of the application"""
+        """This function opens a new window with information regardinng the helpdesk of the application"""
         win = Toplevel()
         win.geometry("200x200")
-        message = "Welkom bij de helpdesk"
-        labelhelp = Label(win, text=message)
-        labelhelp.grid(row=1)
+        Label(win, text="Welkom bij de helpdesk").grid(row=1)
 
     def aanbiederInlog(self):
         """This function checks if the supplier is in the database"""
         In_database = True
-        #Database opvragen of de login goed is
         if In_database == True:
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
             film_a = Toplevel()
             film_a.geometry("600x400")
-            label_test = Label(film_a, text="Hier komen de films van de aanbieder")
-            #In de database gegevens van specifieke gebruiker
-            label_test.grid(row=1)
+            Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
             """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
             with all the customers"""
-        elif In_database != True:
+        else:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
 
     def aanbiederSite(self):
@@ -64,27 +45,16 @@ class Interface:
             """This function does the same as loginButton but for a different page"""
             name_s = entry_3.get()
             mail_s = entry_4.get()
-            print(name_s)
-            print(mail_s)
             self.aanbiederInlog()
-
-
         aan = Toplevel()
         aan.geometry("200x100")
-
-        label_naam = Label(aan, text="Naam")
-        label_email = Label(aan, text="E-mailadres")
-        label_naam.grid(row=0, sticky=E)
-        label_email.grid(row=1, sticky=E)
-
+        Label(aan, text="Naam").grid(row=0,sticky=E)
+        Label(aan, text="E-mailadres").grid(row=1,sticky=E)
         entry_3 = Entry(aan)
-        entry_4 = Entry(aan)
         entry_3.grid(row=0, column=1)
+        entry_4 = Entry(aan)
         entry_4.grid(row=1, column=1)
-        button_3 = Button(aan, text="Inloggen", command=loginButton_1)
-        button_3.grid(row=2, column=1)
-
-
+        Button(aan, text="Inloggen", command=loginButton_1).grid(row=2,column=1)
 
 root = Tk()
 i = Interface(root)
@@ -94,15 +64,10 @@ def loginButton():
         def ticket(filmnaam):
                 ticket1 = Toplevel()
                 ticket1.geometry("600x400")
-                label_ticket = Label(ticket1, text=filmnaam)
-                label_ticket.grid(row=1)
+                Label(ticket1, text=filmnaam).grid(row=1)
                 print(filmnaam)
-
-
-
         def Movies():
             """This function takes you to a new window with all available movies"""
-
             film = Toplevel()
             film.geometry("300x300")
             label_film = Label(film, text="Beschikbare films vandaag")
@@ -112,13 +77,8 @@ def loginButton():
             row = 2
             for filmnaam in films:
                 c = Button(film, text=filmnaam, command=(lambda filmen=filmnaam: ticket(filmen)))
-                c.grid(row=row)
+                c.grid(row=row, sticky=W)
                 row +=1
-
-
-
-
-        teller = 1
         In_database_2 = True
         name = entry_1.get()
         mail = entry_2.get()
@@ -134,8 +94,5 @@ entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
-button_1 = Button(root, text="Inloggen", command=loginButton)
-button_1.grid(row=2, column=1)
-
-
+Button(root, text="Inloggen", command=loginButton).grid(row=2,column=1)
 root.mainloop()
