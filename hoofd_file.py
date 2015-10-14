@@ -20,7 +20,6 @@ def schrijf_xml(data):
     bestand.write(str(data))
     bestand.close()
 
-
 def apicall():
     '''this function transfers data from the filmtotaal server, by using API, into the schrijf_xml function'''
     date = datum()
@@ -201,11 +200,6 @@ def SQL_Select_Film():
 
 
     return returnlist
-
-
-
-
-
 
 def codegenerator(name, mail, film, starttijd):
     """
