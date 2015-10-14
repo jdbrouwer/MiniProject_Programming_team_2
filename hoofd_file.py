@@ -113,8 +113,7 @@ def SQL_Create_Database():
                         Ticket_code STRING UNIQUE,
                         Choosen_Film STRING,
                         StartTime_Film STRING,
-                        Date_Film STRING,
-                         UNIQUE (Name,E_Mail));''')
+                        Date_Film STRING);''')
         #aanmaken van Provider Tabel
         conn.execute('''CREATE TABLE Providers
                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -276,6 +275,7 @@ def loginButton():
                 ticket1.geometry("600x400")
                 Label(ticket1, text=filmnaam).grid(row=1)
                 print(filmnaam)
+
         def Movies():
             """This function takes you to a new window with all available movies"""
             film = Toplevel()
