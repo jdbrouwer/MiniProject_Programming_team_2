@@ -3,6 +3,7 @@ import tkinter.messagebox
 import hoofd_file
 import pyqrcode
 
+
 class Interface:
     """This is a class for the interface, all the functions related to the interface are in this class"""
     def __init__(self, master):
@@ -80,8 +81,8 @@ class Interface:
         hoofd_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
         # Weergeeft de ticketcode in de UI
         ticketcode_schem = Toplevel()
-        Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande",width=100).grid(row=1)
-        Label(ticketcode_schem,text = ticket_code,width=100).grid(row=6)
+        Label(ticketcode_schem, text="Uw ticketcode is als onderstaande", width=100).grid(row=1)
+        Label(ticketcode_schem,text=ticket_code, width=100).grid(row=6)
 
     def Film_Site(self, name, mail):
         """This function takes you to a new window with all available movies
@@ -97,7 +98,8 @@ class Interface:
             provider_name = hoofd_file.SQL_Select_Provider(filmnaam[0])
             keuze = filmnaam + tuple(provider_name)
             if len(keuze) > 4:
-                c = Button(film_window, width=100, bg = 'white', text=keuze, command=(lambda filmen=keuze: self.ticket(filmen,name,mail)))
+                c = Button(film_window, width=100, bg = 'white', text=keuze,
+                           command=(lambda filmen=keuze: self.ticket(filmen, name, mail)))
                 c.grid(row=row, sticky=W)
                 row += 1
             else:
