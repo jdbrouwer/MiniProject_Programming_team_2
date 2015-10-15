@@ -2,7 +2,7 @@
 import sqlite3, codecs, requests, datetime, xmltodict, os, random
 
 
-#Intergratie database
+#Intergratie
 
 #XML PART
 
