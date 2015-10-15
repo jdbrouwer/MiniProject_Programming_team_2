@@ -136,11 +136,14 @@ def SQL_Create_Database():
                         Date DATE,
                         UNIQUE (Film_Name,Start_Time_Film,End_time_Film,Date));''')
         print('Committing to database')
-        conn.commit()
-        conn.close()
         print("Database created Succesfully")
     except:
         print("Database cannot be created, It might already exist...")
+
+    finally:
+        conn.commit()
+        conn.close()
+
 
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
     """Writing Films from the API to the SQLLite database.
@@ -179,7 +182,7 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
     try:
 #executing sql query for each item in fuser
         conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Chosen_Film, StartTime_Film, Date_Film)
-            VALUES (?,?,?,?,?,?)''',(user_name,email,ticket_code,chosen_film_name,chosen_film_time,chosen_film_date))
+        VALUES (?,?,?,?,?,?)''',(user_name,email,ticket_code,chosen_film_name,chosen_film_time,chosen_film_date))
     except:
             print("Could not write to Table users, Check if lists are being passed to this function")
     finally:
@@ -196,7 +199,6 @@ def SQL_Write_Provider(email,password,providername,film):
     """
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
-    c = conn.cursor()
     try:
 #executing sql query for each item in fuser
         for e in provider_name:
@@ -216,23 +218,31 @@ def SQL_Select_Film():
     """Read functions to show all databases into the film ."""
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
-    
-    cursor = conn.execute("SELECT Film_Name,Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
-    returnlist = []
-    for row in cursor:
-        returnlist.append(row)
-    return returnlist
+    try:
+        cursor = conn.execute("SELECT Film_Name,Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
+        cursordata = cursor.fetchall()
+    except:
+        print("Cannot select film from film table")
 
+    finally:
+        conn.commit()
+        conn.close()
+        return cursordata
 def SQL_Select_Provider(FilmName):
     """Read functions to show all databases into the film .
     :parameter      FilmName = ??"""
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
-    cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?",([FilmName]))
-    returnlist = []
-    for row in cursor:
-        returnlist.append(row)
-    return returnlist
+
+    try:
+        cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?",([FilmName]))
+        cursordata = cursor.fetchall()
+    except:
+        print("Cannot select users from provider table, Do they exist?")
+    finally:
+        conn.commit()
+        conn.close()
+        return cursordata
 
 
 def Check_Provider_Login(Provider_Email, Password):
@@ -269,7 +279,7 @@ def SQL_Select_Provided_Films(Provider_E_mail):
         #closing connection
         conn.commit()
         conn.close()
-        return(cursordata)
+        return cursordata
 
 
 
