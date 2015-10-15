@@ -1,7 +1,6 @@
 from tkinter import *
 import tkinter.messagebox
 import hoofd_file
-from PIL import Image, ImageTk
 import pyqrcode
 
 class Interface:
@@ -20,7 +19,7 @@ class Interface:
         canvas = Canvas(master, width=300, height=325)
         canvas.grid(row=4,column=0,columnspan=3)
         canvas.create_rectangle(0,0,370,350, fill="black")
-
+        Button(master,text="Site voor aanbieders", command=self.aanbiederSite).grid(row=1,column=2,columnspan=1)
 
     def Help(self):
         """This function opens a new window with information regardinng the helpdesk of the application"""
@@ -67,8 +66,6 @@ class Interface:
         #url.gif("qrcode.gif", scale=10)
         qr = pyqrcode.QRCode(ticket_code)
         qr.show()
-        img = qr.make_image(block_in_pixels=50, border_in_blocks=0)
-        img.save("qr.gif", "GIF")
         #schrijft de ticket informatie naar de database
         hoofd_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
 
@@ -77,12 +74,10 @@ class Interface:
         ticketcode_schem.geometry("800x800")
         Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande").grid(row=1)
         Label(ticketcode_schem,text = ticket_code).grid(row=2)
-        self.QRCode_printen(ticketcode_schem)
 
     def Movies(self, name, mail):
         """This function takes you to a new window with all available movies"""
         film_window = Toplevel()
-        film_window.geometry("300x300")
         label_film = Label(film_window, text="Beschikbare films vandaag")
         label_film.grid(row=1)
         #voor het gemak ff een list
@@ -108,18 +103,6 @@ class Interface:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
             self.Movies(name,mail)
 
-#tijdelijke kladblok
-
-    def QRCode_printen(self,QR):
-        canvas_1 = Canvas(QR, width=500, height=500)
-        print("A")
-        canvas_1.grid(row=3)
-        print("B")
-       # img = Image.open("qr.gif")
-        print("C")
-        print("D")
-        canvas_1.create_image(0,0,image="qr.gif",anchor="nw")
-        print("E")
 
 root = Tk()
 i = Interface(root)
