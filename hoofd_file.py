@@ -32,6 +32,7 @@ def read_xml():
     '''this function makes it so that the xml file can acctually be read like string'''
     bestand = open('filmlijst.xml', 'r')
     xml_string= bestand.read()
+    bestand.close()
     return xmltodict.parse(xml_string)
 
 #The functions below are used to create lists for titels, begin time and start time
