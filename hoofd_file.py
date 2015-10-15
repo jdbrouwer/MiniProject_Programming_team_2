@@ -90,10 +90,12 @@ End_Time = list_end_time(data_xml)
 Date = xml_date(data_xml)
 
 '''SQL PART'''
+"""SQL PART"""
+
 def SQL_Check_DB_Directory():
-    '''Checks the existence of the database and its folder, If database does not exist, it will create one.'''
+    """Checks the existence of the database and its folder, If database does not exist, it will create one."""
     Database_Folder = 'Database'
-#checks if the directory already exists, if it does not, it will throw an exception. (Which will usually be because of insufficent permissions)
+    #checks if the directory already exists, if it does not, it will throw an exception. (Which will usually be because of insufficent permissions)"""
     if not os.path.exists(Database_Folder):
         try:
             os.makedirs(Database_Folder)
@@ -101,9 +103,9 @@ def SQL_Check_DB_Directory():
             print("Cannot create required directory, Aborting!")
 
 def SQL_Create_Database():
-    '''
+    """
     creates the database required for the program. Should be used in conjunction with SQL_Check_Database to make sure database does not already exist
-    '''
+    """
     sqlite_file = 'Database/db_project.sqlite'
     #connect python en sql
     conn = sqlite3.connect(sqlite_file)
@@ -141,7 +143,12 @@ def SQL_Create_Database():
         print("Database cannot be created, It might already exist...")
 
 def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
-    '''Writing Films from the API to the SQLLite database.'''
+    """Writing Films from the API to the SQLLite database.
+    :parameter      Name_Film = Name of the film of the API
+                    Start = Start time of the film
+                    End = End time of the film
+                    Date_of_Film = The date of film
+    """
     sqlite_file = 'Database/db_project.sqlite'
     '''initializing SQlite connector'''
     conn = sqlite3.connect(sqlite_file)
@@ -158,7 +165,14 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
         conn.close()
 
 def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_time, chosen_film_date):
-    '''Writing user information tot the database.'''
+    """This function writes user information tot the database.
+    :parameter      user_name = column of the user table in the database
+                    email = column of the user table in the database
+                    ticket_code = column of the user table in the database
+                    chosen_film = column of the user table in the database
+                    chosen_film_time = column of the user table in the database
+                    chosen_film_date = column of the user table in the database
+    """
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     
@@ -174,6 +188,12 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
         conn.close()
 
 def SQL_Write_Provider(email,password,providername,film):
+    """This function writes information in the providers table
+    :parameter      email = the e-mail of the provider
+                    password = the password of the provider
+                    providername = the name of the provider
+                    film = the film that the provider hosts
+    """
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c = conn.cursor()
@@ -193,7 +213,7 @@ def SQL_Write_Provider(email,password,providername,film):
         conn.close()
 
 def SQL_Select_Film():
-    ''' Read functions to show all databases into the film .'''
+    """Read functions to show all databases into the film ."""
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     
@@ -204,7 +224,8 @@ def SQL_Select_Film():
     return returnlist
 
 def SQL_Select_Provider(FilmName):
-    ''' Read functions to show all databases into the film .'''
+    """Read functions to show all databases into the film .
+    :parameter      FilmName = ??"""
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?",([FilmName]))
@@ -213,8 +234,12 @@ def SQL_Select_Provider(FilmName):
         returnlist.append(row)
     return returnlist
 
+
 def Check_Provider_Login(Provider_Email, Password):
-    ''' Checks passwords for the providers to make sure the input matches the database, Returns either Ture or False .'''
+    """ Checks passwords for the providers to make sure the input matches the database,
+    :return     Ture or False
+    :parameter  Provider_Email = E-mail of the provider
+                Password = Password of the provider"""
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     
@@ -228,7 +253,9 @@ def Check_Provider_Login(Provider_Email, Password):
 
 def SQL_Select_Provided_Films(Provider_E_mail):
     """
-    :return: This function retrieves all
+    This function gets all names ,who have chosen the same film as the provider, out of the database
+    :return         This function retrieves all
+    :parameter      Provider_E_mail = The e-mail of the provider
     """
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
@@ -248,7 +275,11 @@ def SQL_Select_Provided_Films(Provider_E_mail):
 
 def codegenerator(name, mail, film, starttijd):
     """
- this function makes from the name, mail, film and starttijd a code
+    This function makes from the name, mail, film and starttime of the film a code for a unique ticket
+    :parameter      name = name of the user
+                    mail = e-mailadres of the server
+                    film = the movie selected by the user
+                    starttijd = the starttime of the movie
     """
     gen_name = []
     for c in name:
