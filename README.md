@@ -8,3 +8,12 @@ Plugins die geinstaleerd moeten worden voor dit programma:
 -Pillow(Image,ImageTk)
 -pyqrcode
 -pyqr
+
+Usernamen en wachtwoorden van de providers. (Dit is testdata)
+
+Elmo Tilo            Welkom01
+Andreas Fabian       Welkom02
+Merten Bertram       Welkom03
+Meinrad Severin      Welkom04
+David Bernhard       Welkom05
+Vinzent Timotheus    Welkom06

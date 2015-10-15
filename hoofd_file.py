@@ -1,7 +1,6 @@
 #This is the main file of our python program
 import sqlite3, codecs, requests, datetime, xmltodict, os, random
-from tkinter import *
-import tkinter.messagebox
+
 
 #Intergratie database
 
@@ -19,7 +18,6 @@ def schrijf_xml(data):
     bestand = codecs.open('filmlijst.xml', "w", "utf-8")
     bestand.write(str(data))
     bestand.close()
-
 
 def apicall():
     '''this function transfers data from the filmtotaal server, by using API, into the schrijf_xml function'''
@@ -76,7 +74,7 @@ def list_end_time(lijst):
 #list with providers and a list with e-mails
 provider_name = ['Elmo Tilo', 'Andreas Fabian', 'Merten Bertram', 'Meinrad Severin', 'David Bernhard', 'Vinzent Timotheus']
 provider_email = ['elmo.tilo@gmail.com', 'andreas.fabian@gmail.com', 'merten.bertram@gmail.com', 'mainrad.severin@gmail.com', 'david.bernhard@gmail.com', 'vinzent.timotheus@gmail.com']
-provider_password = 'Welkom01'
+provider_password = ['Welkom01','Welkom02' ,'Welkom03', 'Welkom04', 'Welkom05', 'Welkom06']
 #Creating the proper data from the API. (used to write to the database)
 apicall()
 data_xml = read_xml()
@@ -155,7 +153,6 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
         conn.commit()
         conn.close()
 
-
 def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_time, chosen_film_date):
     '''Writing user information tot the database.'''
     sqlite_file = 'Database/db_project.sqlite'
@@ -183,9 +180,9 @@ def SQL_Write_Provider(email,password,providername,film):
             stap = provider_name.index(e)
             print(email[stap],password,providername[stap],film[stap])
             conn.execute('''INSERT INTO Providers (E_mail, Password, ProviderName, Film)
-                        VALUES (?,?,?,?)''',(email[stap],'Welkom1',providername[stap],film[random.randint(0, len(provider_name))]))
-    except:
-            print("Could not write to provider table, Check if lists are being passed to this function")
+                        VALUES (?,?,?,?)''',(email[stap],password[stap],providername[stap],film[random.randint(0, len(provider_name))]))
+    # except:
+            #print("Could not write to provider table, Check if lists are being passed to this function")
 
     finally:
         #closing connection
@@ -197,7 +194,7 @@ def SQL_Select_Film():
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-    cursor = conn.execute("SELECT Film_Name , Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
+    cursor = conn.execute("SELECT Film_Name,Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
     returnlist = []
     for row in cursor:
         returnlist.append(row)
@@ -213,6 +210,9 @@ def SQL_Select_Provider(FilmName):
     for row in cursor:
         returnlist.append(row)
     return returnlist
+
+
+
 
 def codegenerator(name, mail, film, starttijd):
     """
@@ -235,8 +235,6 @@ def codegenerator(name, mail, film, starttijd):
     e_ticket = gen_done_name +gen_done_mail+ film + starttijd
     print(e_ticket)
     return e_ticket
-
-
 
 #SQL execution of code.
 SQL_Check_DB_Directory()
