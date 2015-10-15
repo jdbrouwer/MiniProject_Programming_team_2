@@ -90,8 +90,6 @@ End_Time = list_end_time(data_xml)
 Date = xml_date(data_xml)
 
 '''SQL PART'''
-"""SQL PART"""
-
 def SQL_Check_DB_Directory():
     """Checks the existence of the database and its folder, If database does not exist, it will create one."""
     Database_Folder = 'Database'
@@ -314,6 +312,3 @@ SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
 print(SQL_Select_Provided_Films('andreas.fabian@gmail.com'))
-
-
-

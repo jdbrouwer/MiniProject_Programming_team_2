@@ -3,7 +3,6 @@ import tkinter.messagebox
 import hoofd_file
 import pyqrcode
 
-
 class Interface:
     """This is a class for the interface, all the functions related to the interface are in this class"""
     def __init__(self, master):
@@ -55,6 +54,12 @@ class Interface:
             film_a = Toplevel()
             film_a.geometry("600x400")
             Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
+            i = 2
+            for e in hoofd_file.SQL_Select_Provided_Films(mail):
+                print(e)
+                Label(film_a, text=e).grid(row=i)
+                i += 1
+
             """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
             with all the customers"""
         else:
