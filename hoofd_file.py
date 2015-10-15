@@ -202,19 +202,16 @@ def SQL_Select_Film():
         returnlist.append(row)
     return returnlist
 
-def SQL_Select_Provider():
+def SQL_Select_Provider(FilmName):
     ''' Read functions to show all databases into the film .'''
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-    cursor = conn.execute("SELECT Film FROM Providers")
+    cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?",(FilmName))
     returnlist = []
     for row in cursor:
         returnlist.append(row)
     return returnlist
-
-
-
 
 def codegenerator(name, mail, film, starttijd):
     """
