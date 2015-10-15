@@ -4,9 +4,11 @@ import hoofd_file
 import pyqrcode
 
 class Interface:
-
+    """This is a class for the interface, all the functions related to the interface are in this class"""
     def __init__(self, master):
-        """This is the main function for the interface, all the graphic related things are in this function"""
+        """This is the main function for the interface, all statements needed for the first page of the aplication are in here
+        :parameter      master = different name for the root window, wich is the first window
+        """
         master.wm_title("Netflix à la 1900")
         master.geometry("310x400")
         taakbalk = Menu(master)
@@ -28,7 +30,7 @@ class Interface:
         Label(win, text="Welkom bij de helpdesk").grid(row=1)
 
     def aanbiederSite(self):
-        """This function opens a new window with a site for the film suppliers """
+        """This function opens a new window that enables you to login as a film providers"""
         aan = Toplevel()
         aan.geometry("200x100")
         Label(aan, text="E-mail").grid(row=0,sticky=E)
@@ -44,7 +46,7 @@ class Interface:
 
 
     def loginButton_provider(self):
-        """This function does the same as loginButton but for a different page"""
+        """This function checks if the e-mail and password of the provider exist in the database"""
         e_mail_s = entry_3
         pass_s = entry_4
         if e_mail_s == '' and pass_s == '':
@@ -59,6 +61,11 @@ class Interface:
             with all the customers"""
 
     def ticket(self,filmnaam,username,email):
+        """This function creates the ticket code and also makes a qr code that connects with your ticket code
+        :parameter  filmnaam= is the movies chosen by the user
+                    username= the name that was entered in the login-screen of the user
+                    email= the e-mailadres entered in the login-screen of the user
+        """
         naam_film = filmnaam[0]
         begintijd = filmnaam[1]
         ticket_code = hoofd_file.codegenerator(username,email,naam_film,begintijd)
@@ -71,12 +78,14 @@ class Interface:
 
         #weergeeft de ticketcode in de UI
         ticketcode_schem = Toplevel()
-        ticketcode_schem.geometry("800x800")
         Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande").grid(row=1)
         Label(ticketcode_schem,text = ticket_code).grid(row=2)
 
     def Movies(self, name, mail):
-        """This function takes you to a new window with all available movies"""
+        """This function takes you to a new window with all available movies
+        :parameter      name= the name of the user got from the login
+                        mail= the mail of the user got form the login
+        """
         film_window = Toplevel()
         label_film = Label(film_window, text="Beschikbare films vandaag")
         label_film.grid(row=1)
@@ -94,7 +103,7 @@ class Interface:
                 continue
 
     def loginButton(self):
-        """This function saves the login that is entered in the two entry's"""
+        """This function saves the login that is entered in the two entry's for the user """
         name = entry_1.get()
         mail = entry_2.get()
         if name == "" and mail == "":
@@ -105,9 +114,12 @@ class Interface:
 
 
 root = Tk()
+
 i = Interface(root)
 p = Interface(root)
 
+
+"""The entry's and buttons for the mainpage"""
 entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
