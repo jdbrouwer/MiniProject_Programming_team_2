@@ -3,7 +3,7 @@ import tkinter.messagebox
 
 class Interface:
 
-    def __init__(self):
+    def __init__(self,master):
  """This is the main function for the interface, all the graphic related things are in this function"""
         master.wm_title("Netflix à la 1900")
         master.geometry("310x400")
@@ -17,7 +17,7 @@ class Interface:
         canvas = Canvas(master, width=300, height=325)
         canvas.grid(row=4,column=0,columnspan=3)
         canvas.create_rectangle(0,0,370,350, fill="black")
-        Button(master,text="Site voor aanbieders", command=self.aanbiederSite).grid(row=1,column=2,columnspan=1)
+        Button(master,text="Site voor aanbieders", command=self.ProviderSite).grid(row=1,column=2,columnspan=1)
 
 
 

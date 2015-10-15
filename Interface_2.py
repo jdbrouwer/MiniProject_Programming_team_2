@@ -21,7 +21,7 @@ class Interface:
         canvas = Canvas(master, width=300, height=325)
         canvas.grid(row=4,column=0,columnspan=3)
         canvas.create_rectangle(0,0,370,350, fill="black")
-        Button(master,text="Site voor aanbieders", command=self.aanbiederSite).grid(row=1,column=2,columnspan=1)
+        Button(master,text="Site voor aanbieders", command=self.ProviderSite).grid(row=1,column=2,columnspan=1)
 
     def Help(self):
         """This function opens a new window with information regardinng the helpdesk of the application"""
@@ -29,20 +29,20 @@ class Interface:
         win.geometry("200x200")
         Label(win, text="Welkom bij de helpdesk").grid(row=1)
 
-    def aanbiederSite(self):
+    def ProviderSite(self):
         """This function opens a new window that enables you to login as a film providers"""
-        global aan
-        aan = Toplevel()
-        aan.geometry("200x100")
-        Label(aan, text="E-mail").grid(row=0,sticky=E)
-        Label(aan, text="Password").grid(row=1,sticky=E)
+        global Provider_Inlog_Screen
+        Provider_Inlog_Screen = Toplevel()
+        Provider_Inlog_Screen.geometry("200x100")
+        Label(Provider_Inlog_Screen, text="E-mail").grid(row=0,sticky=E)
+        Label(Provider_Inlog_Screen, text="Password").grid(row=1,sticky=E)
         global entry_3
-        entry_3 = Entry(aan)
+        entry_3 = Entry(Provider_Inlog_Screen)
         entry_3.grid(row=0, column=1)
         global entry_4
-        entry_4 = Entry(aan)
+        entry_4 = Entry(Provider_Inlog_Screen)
         entry_4.grid(row=1, column=1)
-        button1= Button(aan, text="Inloggen", command=self.loginButton_provider)
+        button1= Button(Provider_Inlog_Screen, text="Inloggen", command=self.loginButton_provider)
         button1.grid(row=2,column=1)
 
     def loginButton_provider(self):
@@ -58,8 +58,7 @@ class Interface:
             with all the customers"""
         else:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
-            aan.destroy()
-            self.aanbiederSite()
+            self.ProviderSite()
 
     def ticket(self,filmnaam,username,email):
         """This function creates the ticket code and also makes a qr code that connects with your ticket code
@@ -82,7 +81,7 @@ class Interface:
         Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande").grid(row=1)
         Label(ticketcode_schem,text = ticket_code).grid(row=2)
 
-    def Movies(self, name, mail):
+    def Film_Site(self, name, mail):
         """This function takes you to a new window with all available movies
         :parameter      name= the name of the user got from the login
                         mail= the mail of the user got form the login
@@ -111,7 +110,7 @@ class Interface:
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-            self.Movies(name,mail)
+            self.Film_Site(name,mail)
 
 
 root = Tk()
@@ -126,5 +125,5 @@ entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
 Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
-Button(root,text="Site voor aanbieders", command=p.aanbiederSite).grid(row=1,column=2,columnspan=1)
+Button(root,text="Site voor aanbieders", command=p.ProviderSite).grid(row=1,column=2,columnspan=1)
 root.mainloop()
