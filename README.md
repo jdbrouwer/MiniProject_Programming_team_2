@@ -9,12 +9,11 @@ Plugins die geinstaleerd moeten worden voor dit programma:
 -pyqrcode
 -pyqr
 
-Usernamen en wachtwoorden van de providers. (Dit is testdata)
+E_Mail en wachtwoorden van de providers. (Dit is testdata)
 
-Elmo Tilo            Welkom01
-Andreas Fabian       Welkom02
-Merten Bertram       Welkom03
-Meinrad Severin      Welkom04
-David Bernhard       Welkom05
-Vinzent Timotheus    Welkom06
-
+elmo.tilo@gmail.com	        Welkom01
+andreas.fabian@gmail.com	Welkom02
+merten.bertram@gmail.com	Welkom03
+mainrad.severin@gmail.com	Welkom04
+david.bernhard@gmail.com	Welkom05
+vinzent.timotheus@gmail.com	Welkom06
