@@ -44,7 +44,6 @@ class Interface:
         button1= Button(aan, text="Inloggen", command=self.loginButton_provider)
         button1.grid(row=2,column=1)
 
-
     def loginButton_provider(self):
         """This function checks if the e-mail and password of the provider exist in the database"""
         e_mail_s = entry_3
