@@ -269,10 +269,14 @@ def SQL_Select_Provided_Films(Provider_E_mail):
     conn = sqlite3.connect(sqlite_file)
     try:
 
-        cursor = conn.execute('''SELECT Name,Film,Date_Film,Ticket_code FROM Providers INNER JOIN User on Providers.Film = User.Chosen_Film WHERE Providers.E_mail = ?''',([Provider_E_mail]))
+        cursor = conn.execute('''SELECT StartTime_Film,Name,Film,Date_Film,Ticket_code
+                                 FROM Providers INNER JOIN User on Providers.Film = User.Chosen_Film
+                                 WHERE Providers.E_mail = ?
+                                 ORDER BY Time(User.StartTime_Film) ASC, User.Name ASC''',([Provider_E_mail]))
         cursordata = cursor.fetchall()
-    except:
-            print("Could not write to Table asdfadsfasdf, Check if lists are being passed to this function")
+
+    #except:
+            #print("Could not write to Table asdfadsfasdf, Check if lists are being passed to this function")
     finally:
         #closing connection
         conn.commit()
