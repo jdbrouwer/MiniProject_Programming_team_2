@@ -45,7 +45,6 @@ class Interface:
         button1= Button(aan, text="Inloggen", command=self.loginButton_provider)
         button1.grid(row=2,column=1)
 
-
     def loginButton_provider(self):
         """This function does the same as loginButton but for a different page"""
         mail = entry_3.get()
