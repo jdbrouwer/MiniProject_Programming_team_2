@@ -1,11 +1,8 @@
 #This is the main file of our python program
-import sqlite3, codecs, requests, datetime, xmltodict, os, random
-
-
+import sqlite3, codecs, requests, datetime, xmltodict, os
 #Intergratie
 
 #XML PART
-
 def datum():
     """This function specifies the current date, this date is used in the request url"""
     i = datetime.datetime.now()
@@ -93,7 +90,6 @@ End_Time = list_end_time(data_xml)
 Date = xml_date(data_xml)
 
 '''SQL PART'''
-
 def SQL_Check_DB_Directory():
     '''Checks the existence of the database and its folder, If database does not exist, it will create one.'''
     Database_Folder = 'Database'
@@ -230,6 +226,25 @@ def Check_Provider_Login(Provider_Email, Password):
     if checkvalue == 0:
         return False
 
+def SQL_Select_Provided_Films(Provider_E_mail):
+    """
+    :return: This function retrieves all
+    """
+    sqlite_file = 'Database/db_project.sqlite'
+    conn = sqlite3.connect(sqlite_file)
+    try:
+
+        cursor = conn.execute('''SELECT Name,Film,Date_Film,Ticket_code FROM Providers INNER JOIN User on Providers.Film = User.Chosen_Film WHERE Providers.E_mail = ?''',([Provider_E_mail]))
+        cursordata = cursor.fetchall()
+    except:
+            print("Could not write to Table asdfadsfasdf, Check if lists are being passed to this function")
+    finally:
+        #closing connection
+        conn.commit()
+        conn.close()
+        return(cursordata)
+
+
 
 def codegenerator(name, mail, film, starttijd):
     """
@@ -257,6 +272,4 @@ SQL_Check_DB_Directory()
 SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
-
-
-print(Check_Provider_Login("elmo.tilo@gmail.com" ,"Welkom01" ))
+print(SQL_Select_Provided_Films('andreas.fabian@gmail.com'))
