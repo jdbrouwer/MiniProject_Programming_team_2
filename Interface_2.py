@@ -28,24 +28,22 @@ class Interface:
         win.geometry("200x200")
         Label(win, text="Welkom bij de helpdesk").grid(row=1)
 
-    def aanbiederInlog(self, name, password):
-        """This function checks if the supplier is in the database"""
-        if name == ' ' and password == ' ':
-            tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
-            film_a = Toplevel()
-            film_a.geometry("600x400")
-            Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
-            """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
-            with all the customers"""
-        else:
-            tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
-            self.aanbiederSite()
+    # def aanbiederInlog(self, name, password):
+    #     """This function checks if the supplier is in the database"""
+    #     if name == ' ' and password == ' ':
+    #         tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
+    #         film_a = Toplevel()
+    #         film_a.geometry("600x400")
+    #         Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
+    #         """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
+    #         with all the customers"""
+    #     else:
+    #         tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
+    #         self.aanbiederSite()
 
-    def loginButton_provider(self, entry_3, entry_4):
-        """This function does the same as loginButton but for a different page"""
-        name_s = entry_3.get()
-        pass_s = entry_4.get()
-        self.aanbiederInlog(name_s, pass_s)
+    def call_button(self, aan):
+        button1= Button(aan, text="Inloggen", command=self.loginButton_provider)
+        button1.grid(row=2,column=1)
 
     def aanbiederSite(self):
         """This function opens a new window with a site for the film suppliers """
@@ -53,12 +51,29 @@ class Interface:
         aan.geometry("200x100")
         Label(aan, text="Naam").grid(row=0,sticky=E)
         Label(aan, text="Password").grid(row=1,sticky=E)
+        global entry_3
         entry_3 = Entry(aan)
         entry_3.grid(row=0, column=1)
+        global entry_4
         entry_4 = Entry(aan)
         entry_4.grid(row=1, column=1)
-        button1= Button(aan, text="Inloggen", command=self.loginButton_provider(entry_3, entry_4))
-        button1.grid(row=2,column=1)
+        self.call_button(aan)
+
+
+    def loginButton_provider(self):
+        """This function does the same as loginButton but for a different page"""
+        name_s = entry_3
+        pass_s = entry_4
+        if name_s == '' and pass_s == '':
+            tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
+            self.aanbiederSite()
+        else:
+            tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
+            film_a = Toplevel()
+            film_a.geometry("600x400")
+            Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
+            """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
+            with all the customers"""
 
     def ticket(self,filmnaam,username,email):
         naam_film = filmnaam[0]
@@ -124,12 +139,16 @@ class Interface:
 
 root = Tk()
 i = Interface(root)
-
+p = Interface(root)
 
 entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
+entry_3 = Entry(root)
+entry_4 = Entry(root)
+entry_3.grid(row=0, column=1)
+entry_4.grid(row=1, column=1)
 Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
-Button(root,text="Site voor aanbieders", command=i.aanbiederSite).grid(row=1,column=2,columnspan=1)
+Button(root,text="Site voor aanbieders", command=p.aanbiederSite).grid(row=1,column=2,columnspan=1)
 root.mainloop()
