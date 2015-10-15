@@ -213,9 +213,14 @@ def Check_Provider_Login(Provider_Email, Password):
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     
-    cursor = conn.execute('''SELECT E_Mail, Password FROM Providers WHERE E_Mail = ? AND Password = ?''',(Provider_Email,Password))
+    cursor = conn.execute('''SELECT E_Mail, Password FROM Providers WHERE E_Mail = ? AND Password = ?''',(str(Provider_Email),str(Password)))
     checkvalue = (len(cursor.fetchall()))
-    return checkvalue
+    print(type(checkvalue))
+    if checkvalue == 1:
+        return True
+    if checkvalue == 0:
+        return False
+
 
 
 
@@ -238,7 +243,6 @@ def codegenerator(name, mail, film, starttijd):
         gen_mail_2 = gen_mail[:4] + gen_mail[-4:]
         gen_done_mail = ''.join(gen_mail_2)
     e_ticket = gen_done_name +gen_done_mail+ film + starttijd
-    print(e_ticket)
     return e_ticket
 
 #SQL execution of code.
@@ -248,4 +252,4 @@ SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
 
 
-print(Check_Provider_Login("vinzent.timotheus@gmail.com" ,"Welkom06" ))
+print(Check_Provider_Login("elmo.tilo@gmail.com" ,"Welkom01" ))

@@ -46,19 +46,19 @@ class Interface:
 
 
     def loginButton_provider(self):
-        """This function checks if the e-mail and password of the provider exist in the database"""
-        e_mail_s = entry_3
-        pass_s = entry_4
-        if e_mail_s == '' and pass_s == '':
-            tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
-            self.aanbiederSite()
-        else:
+        """This function does the same as loginButton but for a different page"""
+        mail = entry_3.get()
+        password = entry_4.get()
+        if  hoofd_file.Check_Provider_Login(mail ,password):
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
             film_a = Toplevel()
             film_a.geometry("600x400")
             Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
             """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
             with all the customers"""
+        else:
+            tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
+            self.aanbiederSite()
 
     def ticket(self,filmnaam,username,email):
         """This function creates the ticket code and also makes a qr code that connects with your ticket code
