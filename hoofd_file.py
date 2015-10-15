@@ -181,8 +181,8 @@ def SQL_Write_Provider(email,password,providername,film):
             print(email[stap],password,providername[stap],film[stap])
             conn.execute('''INSERT INTO Providers (E_mail, Password, ProviderName, Film)
                         VALUES (?,?,?,?)''',(email[stap],password[stap],providername[stap],film[random.randint(0, len(provider_name))]))
-    # except:
-            #print("Could not write to provider table, Check if lists are being passed to this function")
+    except:
+            print("Could not write to provider table, Check if lists are being passed to this function")
 
     finally:
         #closing connection
