@@ -41,10 +41,6 @@ class Interface:
     #         tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
     #         self.aanbiederSite()
 
-    def call_button(self, aan):
-        button1= Button(aan, text="Inloggen", command=self.loginButton_provider)
-        button1.grid(row=2,column=1)
-
     def aanbiederSite(self):
         """This function opens a new window with a site for the film suppliers """
         aan = Toplevel()
@@ -57,7 +53,8 @@ class Interface:
         global entry_4
         entry_4 = Entry(aan)
         entry_4.grid(row=1, column=1)
-        self.call_button(aan)
+        button1= Button(aan, text="Inloggen", command=self.loginButton_provider)
+        button1.grid(row=2,column=1)
 
 
     def loginButton_provider(self):
