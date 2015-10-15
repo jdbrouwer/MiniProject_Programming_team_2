@@ -31,6 +31,7 @@ class Interface:
 
     def aanbiederSite(self):
         """This function opens a new window that enables you to login as a film providers"""
+        global aan
         aan = Toplevel()
         aan.geometry("200x100")
         Label(aan, text="E-mail").grid(row=0,sticky=E)
@@ -58,6 +59,7 @@ class Interface:
             with all the customers"""
         else:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
+            aan.destroy()
             self.aanbiederSite()
 
     def ticket(self,filmnaam,username,email):
