@@ -1,5 +1,5 @@
 #This is the main file of our python program
-import sqlite3, codecs, requests, datetime, xmltodict, os
+import sqlite3, codecs, requests, datetime, xmltodict, os, random
 from tkinter import *
 import tkinter.messagebox
 
@@ -207,7 +207,7 @@ def SQL_Select_Provider(FilmName):
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c= conn.cursor()
-    cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?",(FilmName))
+    cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?",([FilmName]))
     returnlist = []
     for row in cursor:
         returnlist.append(row)

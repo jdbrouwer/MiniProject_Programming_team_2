@@ -28,10 +28,9 @@ class Interface:
         win.geometry("200x200")
         Label(win, text="Welkom bij de helpdesk").grid(row=1)
 
-    def aanbiederInlog(self):
+    def aanbiederInlog(self, name, password):
         """This function checks if the supplier is in the database"""
-        In_database = True
-        if In_database == True:
+        if name == '' and password == '':
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
             film_a = Toplevel()
             film_a.geometry("600x400")
@@ -41,13 +40,15 @@ class Interface:
         else:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
 
+    def loginButton_provider(self, entry_3, entry_4):
+        """This function does the same as loginButton but for a different page"""
+        name_s = entry_3.get()
+        pass_s = entry_4.get()
+        print('a')
+        self.aanbiederInlog(name_s, pass_s)
+
     def aanbiederSite(self):
         """This function opens a new window with a site for the film suppliers """
-        def loginButton_provider(self):
-            """This function does the same as loginButton but for a different page"""
-            name_s = entry_3.get()
-            mail_s = entry_4.get()
-            self.aanbiederInlog()
         aan = Toplevel()
         aan.geometry("200x100")
         Label(aan, text="Naam").grid(row=0,sticky=E)
@@ -56,7 +57,7 @@ class Interface:
         entry_3.grid(row=0, column=1)
         entry_4 = Entry(aan)
         entry_4.grid(row=1, column=1)
-        Button(aan, text="Inloggen", command=loginButton_provider).grid(row=2,column=1)
+        Button(aan, text="Inloggen", command=self.loginButton_provider(entry_3, entry_4)).grid(row=2,column=1)
 
     def ticket(self,filmnaam,username,email):
         naam_film = filmnaam[0]
@@ -65,7 +66,7 @@ class Interface:
         #url = pyqrcode.create(ticket_code)
         # url.png("qrcode.png", scale=10)
         #schrijft de ticket informatie naar de database
-        hoofd_file.SQL_Write_User(username,email, ticket_code,filmnaam[0], filmnaam[1], filmnaam[3])
+        hoofd_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
 
         #weergeeft de ticketcode in de UI
         ticketcode_schem = Toplevel()
@@ -85,9 +86,14 @@ class Interface:
         films_query = hoofd_file.SQL_Select_Film()
         row = 2
         for filmnaam in films_query:
-            c = Button(film_window, text=filmnaam, command=(lambda filmen=filmnaam: self.ticket(filmen,name,mail)))
-            c.grid(row=row, sticky=W)
-            row +=1
+            provider_name = hoofd_file.SQL_Select_Provider(filmnaam[0])
+            keuze = filmnaam + tuple(provider_name)
+            if len(keuze) > 4:
+                c = Button(film_window, text=keuze, command=(lambda filmen=keuze: self.ticket(filmen,name,mail)))
+                c.grid(row=row, sticky=W)
+                row +=1
+            else:
+                continue
 
     def loginButton(self):
     #This function saves the login that is entered in the two entry's#
