@@ -178,7 +178,7 @@ def SQL_Write_Provider(email,password,providername,film):
             stap = provider_name.index(e)
 
             conn.execute('''INSERT INTO Providers (E_mail, Password, ProviderName, Film)
-                        VALUES (?,?,?,?)''',(email[stap],password[stap],providername[stap],film[random.randint(0, len(provider_name))]))
+                        VALUES (?,?,?,?)''',(email[stap],password[stap],providername[stap],film[stap]))
     except:
             print("Could not write to provider table, Check if lists are being passed to this function")
 
@@ -220,8 +220,6 @@ def Check_Provider_Login(Provider_Email, Password):
         return True
     if checkvalue == 0:
         return False
-
-
 
 
 def codegenerator(name, mail, film, starttijd):
