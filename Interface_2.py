@@ -3,6 +3,7 @@ import tkinter.messagebox
 import hoofd_file
 import pyqrcode
 
+
 class Interface:
     """This is a class for the interface, all the functions related to the interface are in this class"""
     def __init__(self, master):
@@ -13,18 +14,18 @@ class Interface:
         master.geometry("310x400")
         taakbalk = Menu(master)
         master.config(menu=taakbalk)
-        subMenu = Menu(taakbalk)
-        taakbalk.add_cascade(label="About", menu=subMenu)
-        subMenu.add_command(label="Help", command=self.Help)
-        Label(master, text="Naam").grid(row=0,sticky=E)
-        Label(master, text="E-mailadres").grid(row=1,sticky=E)
+        submenu = Menu(taakbalk)
+        taakbalk.add_cascade(label="About", menu=submenu)
+        submenu.add_command(label="Help", command=self.Help)
+        Label(master, text="Naam").grid(row=0, sticky=E)
+        Label(master, text="E-mailadres").grid(row=1, sticky=E)
         canvas = Canvas(master, width=300, height=325)
-        canvas.grid(row=4,column=0,columnspan=3)
-        canvas.create_rectangle(0,0,370,350, fill="black")
-        Button(master,text="Site voor aanbieders", command=self.ProviderSite).grid(row=1,column=2,columnspan=1)
+        canvas.grid(row=4, column=0, columnspan=3)
+        canvas.create_rectangle(0, 0, 370, 350, fill="black")
+        Button(master, text="Site voor aanbieders", command=self.ProviderSite).grid(row=1, column=2, columnspan=1)
 
     def Help(self):
-        """This function opens a new window with information regardinng the helpdesk of the application"""
+        """This function opens a new window with information regarding the helpdesk of the application"""
         win = Toplevel()
         win.geometry("200x200")
         Label(win, text="Welkom bij de helpdesk").grid(row=1)
@@ -34,22 +35,22 @@ class Interface:
         global Provider_Inlog_Screen
         Provider_Inlog_Screen = Toplevel()
         Provider_Inlog_Screen.geometry("200x100")
-        Label(Provider_Inlog_Screen, text="E-mail").grid(row=0,sticky=E)
-        Label(Provider_Inlog_Screen, text="Password").grid(row=1,sticky=E)
+        Label(Provider_Inlog_Screen, text="E-mail").grid(row=0, sticky=E)
+        Label(Provider_Inlog_Screen, text="Password").grid(row=1, sticky=E)
         global entry_3
         entry_3 = Entry(Provider_Inlog_Screen)
         entry_3.grid(row=0, column=1)
         global entry_4
         entry_4 = Entry(Provider_Inlog_Screen)
         entry_4.grid(row=1, column=1)
-        button1= Button(Provider_Inlog_Screen, text="Inloggen", command=self.loginButton_provider)
-        button1.grid(row=2,column=1)
+        button1 = Button(Provider_Inlog_Screen, text="Inloggen", command=self.loginButton_provider)
+        button1.grid(row=2, column=1)
 
     def loginButton_provider(self):
         """This function does the same as loginButton but for a different page"""
         mail = entry_3.get()
         password = entry_4.get()
-        if  hoofd_file.Check_Provider_Login(mail ,password):
+        if hoofd_file.Check_Provider_Login(mail, password):
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
             film_a = Toplevel()
             film_a.geometry("600x400")
@@ -60,7 +61,7 @@ class Interface:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
             self.ProviderSite()
 
-    def ticket(self,filmnaam,username,email):
+    def ticket(self, filmnaam, username, email):
         """This function creates the ticket code and also makes a qr code that connects with your ticket code
         :parameter  filmnaam= is the movies chosen by the user
                     username= the name that was entered in the login-screen of the user
@@ -68,18 +69,15 @@ class Interface:
         """
         naam_film = filmnaam[0]
         begintijd = filmnaam[1]
-        ticket_code = hoofd_file.codegenerator(username,email,naam_film,begintijd)
-        #url = pyqrcode.create(ticket_code)
-        #url.gif("qrcode.gif", scale=10)
+        ticket_code = hoofd_file.codegenerator(username, email, naam_film, begintijd)
         qr = pyqrcode.QRCode(ticket_code)
         qr.show()
-        #schrijft de ticket informatie naar de database
+        # Schrijft de ticket informatie naar de database
         hoofd_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
-
-        #weergeeft de ticketcode in de UI
+        # Weergeeft de ticketcode in de UI
         ticketcode_schem = Toplevel()
-        Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande").grid(row=1)
-        Label(ticketcode_schem,text = ticket_code).grid(row=2)
+        Label(ticketcode_schem, text="Uw ticketcode is als onderstaande").grid(row=1)
+        Label(ticketcode_schem, text=ticket_code).grid(row=2)
 
     def Film_Site(self, name, mail):
         """This function takes you to a new window with all available movies
@@ -89,16 +87,15 @@ class Interface:
         film_window = Toplevel()
         label_film = Label(film_window, text="Beschikbare films vandaag")
         label_film.grid(row=1)
-        #voor het gemak ff een list
         films_query = hoofd_file.SQL_Select_Film()
         row = 2
         for filmnaam in films_query:
             provider_name = hoofd_file.SQL_Select_Provider(filmnaam[0])
             keuze = filmnaam + tuple(provider_name)
             if len(keuze) > 4:
-                c = Button(film_window, text=keuze, command=(lambda filmen=keuze: self.ticket(filmen,name,mail)))
+                c = Button(film_window, text=keuze, command=(lambda filmen=keuze: self.ticket(filmen, name, mail)))
                 c.grid(row=row, sticky=W)
-                row +=1
+                row += 1
             else:
                 continue
 
@@ -110,20 +107,16 @@ class Interface:
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-            self.Film_Site(name,mail)
-
+            self.Film_Site(name, mail)
 
 root = Tk()
-
 i = Interface(root)
 p = Interface(root)
-
-
 """The entry's and buttons for the mainpage"""
 entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
-Button(root, text="Inloggen", command=i.loginButton).grid(row=2,column=1)
-Button(root,text="Site voor aanbieders", command=p.ProviderSite).grid(row=1,column=2,columnspan=1)
+Button(root, text="Inloggen", command=i.loginButton).grid(row=2, column=1)
+Button(root, text="Site voor aanbieders", command=p.ProviderSite).grid(row=1, column=2, columnspan=1)
 root.mainloop()
