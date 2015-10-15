@@ -11,7 +11,8 @@ class Interface:
         :parameter      master = different name for the root window, wich is the first window
         """
         master.wm_title("Netflix à la 1900")
-        master.geometry("310x400")
+        master.geometry("310x250")
+        master.configure(background="steel blue")
         taakbalk = Menu(master)
         master.config(menu=taakbalk)
         submenu = Menu(taakbalk)
@@ -19,8 +20,6 @@ class Interface:
         submenu.add_command(label="Help", command=self.Help)
         Label(master, text="Naam").grid(row=0, sticky=E)
         Label(master, text="E-mailadres").grid(row=1, sticky=E)
-        canvas = Canvas(master, width=300, height=325)
-        canvas.grid(row=4, column=0, columnspan=3)
         Button(master, text="Site voor aanbieders", command=self.ProviderSite).grid(row=1, column=2, columnspan=1)
 
     def Help(self):
