@@ -140,7 +140,6 @@ def SQL_Write_Films(Name_Film,Start,End,Date_of_Film):
     sqlite_file = 'Database/db_project.sqlite'
     '''initializing SQlite connector'''
     conn = sqlite3.connect(sqlite_file)
-    c= conn.cursor()
     try:
 #executing sql query for each item in films
         for e in Name_Film:
@@ -157,32 +156,31 @@ def SQL_Write_User(user_name,email,ticket_code,chosen_film_name, chosen_film_tim
     '''Writing user information tot the database.'''
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
-    c= conn.cursor()
-    #try:
+    
+    try:
 #executing sql query for each item in fuser
-    conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Chosen_Film, StartTime_Film, Date_Film)
+        conn.execute('''INSERT INTO User (Name, E_mail, Ticket_code, Chosen_Film, StartTime_Film, Date_Film)
             VALUES (?,?,?,?,?,?)''',(user_name,email,ticket_code,chosen_film_name,chosen_film_time,chosen_film_date))
-    #except:
-           # print("Could not write to Table users, Check if lists are being passed to this function")
-   # finally:
+    except:
+            print("Could not write to Table users, Check if lists are being passed to this function")
+    finally:
         #closing connection
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
 def SQL_Write_Provider(email,password,providername,film):
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c = conn.cursor()
-
     try:
 #executing sql query for each item in fuser
         for e in provider_name:
             stap = provider_name.index(e)
-            print(email[stap],password,providername[stap],film[stap])
+
             conn.execute('''INSERT INTO Providers (E_mail, Password, ProviderName, Film)
                         VALUES (?,?,?,?)''',(email[stap],password[stap],providername[stap],film[random.randint(0, len(provider_name))]))
-    # except:
-            #print("Could not write to provider table, Check if lists are being passed to this function")
+    except:
+            print("Could not write to provider table, Check if lists are being passed to this function")
 
     finally:
         #closing connection
@@ -193,7 +191,7 @@ def SQL_Select_Film():
     ''' Read functions to show all databases into the film .'''
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
-    c= conn.cursor()
+    
     cursor = conn.execute("SELECT Film_Name,Start_Time_Film, End_Time_Film, Date FROM Films ORDER BY Date ASC, time(Start_Time_Film) ASC")
     returnlist = []
     for row in cursor:
@@ -204,13 +202,20 @@ def SQL_Select_Provider(FilmName):
     ''' Read functions to show all databases into the film .'''
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
-    c= conn.cursor()
     cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?",([FilmName]))
     returnlist = []
     for row in cursor:
         returnlist.append(row)
     return returnlist
 
+def Check_Provider_Login(Provider_Email, Password):
+    ''' Checks passwords for the providers to make sure the input matches the database, Returns either Ture or False .'''
+    sqlite_file = 'Database/db_project.sqlite'
+    conn = sqlite3.connect(sqlite_file)
+    
+    cursor = conn.execute('''SELECT E_Mail, Password FROM Providers WHERE E_Mail = ? AND Password = ?''',(Provider_Email,Password))
+    checkvalue = (len(cursor.fetchall()))
+    return checkvalue
 
 
 
@@ -242,8 +247,5 @@ SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
 
-# def provided_films():
-#     for f in Film_Name:
-#         for p in SQL_Select_Provider():
-#             if f == p:
 
+print(Check_Provider_Login("vinzent.timotheus@gmail.com" ,"Welkom06" ))
