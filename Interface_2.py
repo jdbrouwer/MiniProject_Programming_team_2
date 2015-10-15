@@ -3,7 +3,6 @@ import tkinter.messagebox
 import hoofd_file
 import pyqrcode
 
-
 class Interface:
     """This is a class for the interface, all the functions related to the interface are in this class"""
     def __init__(self, master):
@@ -21,7 +20,6 @@ class Interface:
         Label(master, text="E-mailadres").grid(row=1, sticky=E)
         canvas = Canvas(master, width=300, height=325)
         canvas.grid(row=4, column=0, columnspan=3)
-        canvas.create_rectangle(0, 0, 370, 350, fill="black")
         Button(master, text="Site voor aanbieders", command=self.ProviderSite).grid(row=1, column=2, columnspan=1)
 
     def Help(self):
@@ -55,6 +53,12 @@ class Interface:
             film_a = Toplevel()
             film_a.geometry("600x400")
             Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
+            i = 2
+            for e in hoofd_file.SQL_Select_Provided_Films(mail):
+                print(e)
+                Label(film_a, text=e).grid(row=i)
+                i += 1
+
             """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
             with all the customers"""
         else:
@@ -76,8 +80,8 @@ class Interface:
         hoofd_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
         # Weergeeft de ticketcode in de UI
         ticketcode_schem = Toplevel()
-        Label(ticketcode_schem, text="Uw ticketcode is als onderstaande").grid(row=1)
-        Label(ticketcode_schem, text=ticket_code).grid(row=2)
+        Label(ticketcode_schem,text = "Uw ticketcode is als onderstaande",width=100).grid(row=1)
+        Label(ticketcode_schem,text = ticket_code,width=100).grid(row=6)
 
     def Film_Site(self, name, mail):
         """This function takes you to a new window with all available movies
@@ -93,7 +97,7 @@ class Interface:
             provider_name = hoofd_file.SQL_Select_Provider(filmnaam[0])
             keuze = filmnaam + tuple(provider_name)
             if len(keuze) > 4:
-                c = Button(film_window, text=keuze, command=(lambda filmen=keuze: self.ticket(filmen, name, mail)))
+                c = Button(film_window, width=100, bg = 'white', text=keuze, command=(lambda filmen=keuze: self.ticket(filmen,name,mail)))
                 c.grid(row=row, sticky=W)
                 row += 1
             else:

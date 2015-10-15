@@ -8,6 +8,7 @@ Plugins die geinstaleerd moeten worden voor dit programma:
 -Pillow(Image,ImageTk)
 -pyqrcode
 -pyqr
+-pypng
 
 E_Mail en wachtwoorden van de providers. (Dit is testdata)
 
