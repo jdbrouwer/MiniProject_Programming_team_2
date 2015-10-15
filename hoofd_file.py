@@ -230,8 +230,8 @@ def codegenerator(name, mail, film, starttijd):
         shift_h = ord(h) + 4
         change_h = chr(shift_h)
         gen_mail.append(change_h)
-        gen_mail_2 = gen_mail[:4] + gen_mail[-4:]
-        gen_done_mail = ''.join(gen_mail_2)
+        gen_mail = gen_mail[:4] + gen_mail[-4:]
+        gen_done_mail = ''.join(gen_mail_)
     e_ticket = gen_done_name +gen_done_mail+ film + starttijd
     print(e_ticket)
     return e_ticket
