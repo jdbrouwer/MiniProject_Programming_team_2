@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter.messagebox
-import hoofd_file
+import Function_file
 import pyqrcode
 
 
@@ -10,7 +10,7 @@ class Interface:
         """This is the main function for the interface, all statements needed for the first page of the aplication are in here
         :parameter      master = different name for the root window, wich is the first window
         """
-        master.wm_title("Netflix à la 1900")
+        master.wm_title("Thuisbioscoop Team 2 ")
         master.geometry("310x250")
         master.configure(background="steel blue")
         taakbalk = Menu(master)
@@ -23,10 +23,14 @@ class Interface:
         Button(master, text="Site voor aanbieders", command=self.ProviderSite).grid(row=1, column=2, columnspan=1)
 
     def Help(self):
-        """This function opens a new window with information regarding the helpdesk of the application"""
+        """This function opens a new window with information regarding the the application"""
         win = Toplevel()
         win.geometry("200x200")
-        Label(win, text="Welkom bij de helpdesk").grid(row=1)
+        Label(win, text="Welkom bij onze thuisbioscoop applicatie").grid(row=1)
+        Label(win, text="Deze applicatie kan gebruikt worden om films te reserven in de thuisbioscoop.").grid(row=2)
+        Label(win, text="Daarnaast is het mogelijk om de reserveringen per filmaanbieder in te zien.").grid(row=3)
+        Label(win, text="Dit kan gedaan worden door eerst in te loggen met een geldige aanbieder.").grid(row=4)
+        Label(win, text="Een lijst met geldige aanbieders kan men vinden in de readme.md").grid(row=5)
 
     def ProviderSite(self):
         """This function opens a new window that enables you to login as a film providers"""
@@ -48,13 +52,13 @@ class Interface:
         """This function does the same as loginButton but for a different page"""
         mail = entry_3.get()
         password = entry_4.get()
-        if hoofd_file.Check_Provider_Login(mail, password):
+        if Function_file.Check_Provider_Login(mail, password):
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
             film_a = Toplevel()
             film_a.geometry("600x400")
             Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
             i = 2
-            for e in hoofd_file.SQL_Select_Provided_Films(mail):
+            for e in Function_file.SQL_Select_Provided_Films(mail):
                 print(e)
                 Label(film_a, text=e).grid(row=i)
                 i += 1
@@ -73,11 +77,11 @@ class Interface:
         """
         naam_film = filmnaam[0]
         begintijd = filmnaam[1]
-        ticket_code = hoofd_file.codegenerator(username, email, naam_film, begintijd)
+        ticket_code = Function_file.codegenerator(username, email, naam_film, begintijd)
         qr = pyqrcode.QRCode(ticket_code)
         qr.show()
         # Schrijft de ticket informatie naar de database
-        hoofd_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
+        Function_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
         # Weergeeft de ticketcode in de UI
         ticketcode_schem = Toplevel()
         Label(ticketcode_schem, text="Uw ticketcode is als onderstaande", width=100).grid(row=1)
@@ -91,10 +95,10 @@ class Interface:
         film_window = Toplevel()
         label_film = Label(film_window, text="Beschikbare films vandaag")
         label_film.grid(row=1)
-        films_query = hoofd_file.SQL_Select_Film()
+        films_query = Function_file.SQL_Select_Film()
         row = 2
         for filmnaam in films_query:
-            provider_name = hoofd_file.SQL_Select_Provider(filmnaam[0])
+            provider_name = Function_file.SQL_Select_Provider(filmnaam[0])
             keuze = filmnaam + tuple(provider_name)
             if len(keuze) > 4:
                 c = Button(film_window, width=100, bg = 'white', text=keuze,
