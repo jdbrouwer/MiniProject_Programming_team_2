@@ -85,9 +85,9 @@ class Interface:
         # Weergeeft de ticketcode in de UI
         ticketcode_schem = Toplevel()
         Label(ticketcode_schem, text="Uw ticketcode is als onderstaande", width=100).grid(row=1)
-        Label(ticketcode_schem,text=ticket_code, width=100).grid(row=6)
+        Label(ticketcode_schem, text=ticket_code, width=100).grid(row=6)
 
-    def Film_Site(self, name, mail):
+    def film_site(self, name, mail):
         """This function takes you to a new window with all available movies
         :parameter      name= the name of the user got from the login
                         mail= the mail of the user got form the login
@@ -101,14 +101,14 @@ class Interface:
             provider_name = Function_file.SQL_Select_Provider(filmnaam[0])
             keuze = filmnaam + tuple(provider_name)
             if len(keuze) > 4:
-                c = Button(film_window, width=100, bg = 'white', text=keuze,
+                c = Button(film_window, width=100, bg='white', text=keuze,
                            command=(lambda filmen=keuze: self.ticket(filmen, name, mail)))
                 c.grid(row=row, sticky=W)
                 row += 1
             else:
                 continue
 
-    def loginButton(self):
+    def login_button(self):
         """This function saves the login that is entered in the two entry's for the user """
         name = entry_1.get()
         mail = entry_2.get()
@@ -116,7 +116,8 @@ class Interface:
             tkinter.messagebox._show("Netflix à la 1900", "Vul uw gegevens in")
         else:
             tkinter.messagebox._show("Netflix à la 1900", "U bent succesvol ingelogd")
-            self.Film_Site(name, mail)
+            self.film_site(name, mail)
+
 
 root = Tk()
 i = Interface(root)
@@ -126,6 +127,6 @@ entry_1 = Entry(root)
 entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
-Button(root, text="Inloggen", command=i.loginButton).grid(row=2, column=1)
+Button(root, text="Inloggen", command=i.login_button).grid(row=2, column=1)
 Button(root, text="Site voor aanbieders", command=p.provider_site).grid(row=1, column=2, columnspan=1)
 root.mainloop()
