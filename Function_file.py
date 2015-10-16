@@ -213,7 +213,7 @@ def SQL_Write_User(user_name, email, ticket_code, chosen_film_name, chosen_film_
         conn.close()
 
 
-def SQL_Write_Provider(email,password,providername,film):
+def SQL_Write_Provider(email, password, providername, film):
     """This function writes information in the providers table
     :parameter      email = the e-mail of the provider
                     password = the password of the provider
@@ -254,13 +254,13 @@ def SQL_Select_Film():
         return cursordata
 
 
-def SQL_Select_Provider(FilmName):
+def SQL_Select_Provider(film_name):
     """Read functions to show all databases into the film .
-    :parameter      FilmName = ??"""
+    :parameter      film_name = ??"""
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     try:
-        cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?", ([FilmName]))
+        cursor = conn.execute("SELECT ProviderName FROM Providers WHERE Film = ?", ([film_name]))
         cursordata = cursor.fetchall()
     except:
         print("Cannot select users from provider table, Do they exist?")
@@ -270,16 +270,16 @@ def SQL_Select_Provider(FilmName):
         return cursordata
 
 
-def Check_Provider_Login(Provider_Email, Password):
+def Check_Provider_Login(provider_email, password):
     """ Checks passwords for the providers to make sure the input matches the database,
-    :return     Ture or False
-    :parameter  Provider_Email = E-mail of the provider
+    :return     True or False
+    :parameter  provider_email = E-mail of the provider
                 Password = Password of the provider"""
     sqlite_file = 'Database/db_project.sqlite'
     conn = sqlite3.connect(sqlite_file)
     
     cursor = conn.execute('''SELECT E_Mail, Password FROM Providers WHERE E_Mail = ? AND Password = ?''',
-                          (str(Provider_Email), str(Password)))
+                          (str(provider_email), str(password)))
     checkvalue = (len(cursor.fetchall()))
     print(type(checkvalue))
     if checkvalue == 1:
@@ -288,7 +288,7 @@ def Check_Provider_Login(Provider_Email, Password):
         return False
 
 
-def SQL_Select_Provided_Films(Provider_E_mail):
+def SQL_Select_Provided_Films(provider_e_mail):
     """
     This function gets all names ,who have chosen the same film as the provider, out of the database
     :return         This function retrieves all
@@ -301,7 +301,7 @@ def SQL_Select_Provided_Films(Provider_E_mail):
         cursor = conn.execute('''SELECT StartTime_Film,Name,Film,Date_Film,Ticket_code
                                  FROM Providers INNER JOIN User on Providers.Film = User.Chosen_Film
                                  WHERE Providers.E_mail = ?
-                                 ORDER BY Time(User.StartTime_Film) ASC, User.Name ASC''',([Provider_E_mail]))
+                                 ORDER BY Time(User.StartTime_Film) ASC, User.Name ASC''',([provider_e_mail]))
         cursordata = cursor.fetchall()
 
     # except:
