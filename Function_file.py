@@ -1,10 +1,5 @@
 # This is the main file of our python program
-import sqlite3
-import codecs
-import requests
-import datetime
-import xmltodict
-import os
+import sqlite3, codecs, requests, datetime, xmltodict, os
 # Intergratie
 # XML PART
 
@@ -281,7 +276,6 @@ def Check_Provider_Login(provider_email, password):
     cursor = conn.execute('''SELECT E_Mail, Password FROM Providers WHERE E_Mail = ? AND Password = ?''',
                           (str(provider_email), str(password)))
     checkvalue = (len(cursor.fetchall()))
-    print(type(checkvalue))
     if checkvalue == 1:
         return True
     if checkvalue == 0:
@@ -313,6 +307,8 @@ def SQL_Select_Provided_Films(provider_e_mail):
         return cursordata
 
 
+#Codegenerator
+
 def codegenerator(name, mail, film, starttijd):
     """
     This function makes from the name, mail, film and starttime of the film a code for a unique ticket
@@ -343,4 +339,4 @@ SQL_Check_DB_Directory()
 SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
-print(SQL_Select_Provided_Films('andreas.fabian@gmail.com'))
+
