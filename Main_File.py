@@ -17,13 +17,13 @@ class Interface:
         master.config(menu=taakbalk)
         submenu = Menu(taakbalk)
         taakbalk.add_cascade(label="About", menu=submenu)
-        submenu.add_command(label="Help", command=self.Help)
+        submenu.add_command(label="Help", command=self.help)
         Label(master, text="Naam").grid(row=0, sticky=E)
         Label(master, text="E-mailadres").grid(row=1, sticky=E)
-        Button(master, text="Site voor aanbieders", command=self.ProviderSite).grid(row=1, column=2, columnspan=1)
+        Button(master, text="Site voor aanbieders", command=self.provider_site).grid(row=1, column=2, columnspan=1)
 
-    def Help(self):
-        """This function opens a new window with information regarding the the application"""
+    def help(self):
+        """This function opens a new window with information regarding the helpdesk of the application"""
         win = Toplevel()
         win.geometry("200x200")
         Label(win, text="Welkom bij onze thuisbioscoop applicatie").grid(row=1)
@@ -32,7 +32,7 @@ class Interface:
         Label(win, text="Dit kan gedaan worden door eerst in te loggen met een geldige aanbieder.").grid(row=4)
         Label(win, text="Een lijst met geldige aanbieders kan men vinden in de readme.md").grid(row=5)
 
-    def ProviderSite(self):
+    def provider_site(self):
         """This function opens a new window that enables you to login as a film providers"""
         global Provider_Inlog_Screen
         Provider_Inlog_Screen = Toplevel()
@@ -67,7 +67,7 @@ class Interface:
             with all the customers"""
         else:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
-            self.ProviderSite()
+            self.provider_site()
 
     def ticket(self, filmnaam, username, email):
         """This function creates the ticket code and also makes a qr code that connects with your ticket code
@@ -127,5 +127,5 @@ entry_2 = Entry(root)
 entry_1.grid(row=0, column=1)
 entry_2.grid(row=1, column=1)
 Button(root, text="Inloggen", command=i.loginButton).grid(row=2, column=1)
-Button(root, text="Site voor aanbieders", command=p.ProviderSite).grid(row=1, column=2, columnspan=1)
+Button(root, text="Site voor aanbieders", command=p.provider_site).grid(row=1, column=2, columnspan=1)
 root.mainloop()

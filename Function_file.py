@@ -1,5 +1,10 @@
 # This is the main file of our python program
-import sqlite3, codecs, requests, datetime, xmltodict, os
+import sqlite3
+import codecs
+import requests
+import datetime
+import xmltodict
+import os
 # Intergratie
 # XML PART
 
@@ -15,7 +20,7 @@ def schrijf_xml(data):
     """This function opens filmlijst.xml and writes it into a local xml file
     :parameter     data = is the current date
     """
-    bestand = open('filmlijst.xml', 'w')
+    open('filmlijst.xml', 'w')
     bestand = codecs.open('filmlijst.xml', "w", "utf-8")
     bestand.write(str(data))
     bestand.close()
@@ -44,34 +49,34 @@ def read_xml():
 def list_titels(lijst):
     """Here, the titles of the lists are added to a list
     :parameter      lijst =the data from the API """
-    list = []
+    list_1 = []
     for film in lijst['filmsoptv']['film']:
-        list.append(film['titel'])
-    return list
+        list_1.append(film['titel'])
+    return list_1
 
 
 def xml_date(lijst):
     """This function determines what the date is today
     :parameter      lijst =the data from the API"""
-    list = []
+    list_1 = []
     for film in lijst['filmsoptv']['film']:
         bewerk = datetime.datetime.fromtimestamp(
             int(film['starttijd'])
         ).strftime('%Y-%m-%d')
-        list.append(bewerk)
-    return list
+        list_1.append(bewerk)
+    return list_1
 
 
 def list_begin_time(lijst):
     """The begin times which are listed in the xml files will be put into a list
     :parameter      lijst =the data from the API """
-    list = []
+    list_1 = []
     for film in lijst['filmsoptv']['film']:
         bewerk = datetime.datetime.fromtimestamp(
             int(film['starttijd'])
         ).strftime('%H:%M:%S')
-        list.append(bewerk)
-    return list
+        list_1.append(bewerk)
+    return list_1
 
 
 def list_end_time(lijst):
@@ -79,13 +84,13 @@ def list_end_time(lijst):
     The end times which are listed in the xml files will be put into a list
     :parameter      lijst = the data from the API
     """
-    list = []
+    list_1 = []
     for film in lijst['filmsoptv']['film']:
         bewerk = datetime.datetime.fromtimestamp(
             int(film['eindtijd'])
         ).strftime('%H:%M:%S')
-        list.append(bewerk)
-    return list
+        list_1.append(bewerk)
+    return list_1
 
 # list with providers and a list with e-mails
 provider_name = ['Elmo Tilo', 'Andreas Fabian', 'Merten Bertram', 'Meinrad Severin', 'David Bernhard',
@@ -116,6 +121,7 @@ def SQL_Check_DB_Directory():
         except PermissionError:
             print("Cannot create required directory, Aborting!")
 
+
 def SQL_Create_Database():
     """
     creates the database required for the program. Should be used in conjunction with SQL_Check_Database to make sure
@@ -124,7 +130,6 @@ def SQL_Create_Database():
     sqlite_file = 'Database/db_project.sqlite'
     # connect python en sql
     conn = sqlite3.connect(sqlite_file)
-    c = conn.cursor()
     try:
         # aanmaken van User tabel
         conn.execute('''CREATE TABLE User
@@ -160,23 +165,23 @@ def SQL_Create_Database():
         conn.close()
 
 
-def SQL_Write_Films(Name_Film, Start, End, Date_of_Film):
+def SQL_Write_Films(name_film, start, end, date_of_film):
     """Writing Films from the API to the SQLLite database.
-    :parameter      Name_Film = Name of the film of the API
+    :parameter      name_film = Name of the film of the API
                     Start = Start time of the film
                     End = End time of the film
                     Date_of_Film = The date of film
     """
     sqlite_file = 'Database/db_project.sqlite'
-    '''initializing SQlite connector'''
+    """initializing SQlite connector"""
     conn = sqlite3.connect(sqlite_file)
     try:
         # executing sql query for each item in films
-        for e in Name_Film:
-            position = Name_Film.index(e)
+        for e in name_film:
+            position = name_film.index(e)
             conn.execute('''INSERT INTO Films (Film_Name, Start_time_Film, End_time_Film, Date)
-                        VALUES (?,?,?,?)''', (Name_Film[position], Start[position], End[position],
-                                              Date_of_Film[position]))
+                        VALUES (?,?,?,?)''', (name_film[position], start[position], end[position],
+                                              date_of_film[position]))
     except:
             print("Could not write to Table films, Check if lists are being passed to this function")
     finally:
@@ -330,7 +335,7 @@ def codegenerator(name, mail, film, starttijd):
         gen_mail.append(change_h)
         gen_mail_2 = gen_mail[:4] + gen_mail[-4:]
         gen_done_mail = ''.join(gen_mail_2)
-    e_ticket = gen_done_name +gen_done_mail+ film + starttijd
+    e_ticket = gen_done_name + gen_done_mail + film + starttijd
     return e_ticket
 
 # SQL execution of code.
@@ -339,6 +344,3 @@ SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
 print(SQL_Select_Provided_Films('andreas.fabian@gmail.com'))
-
-
-
