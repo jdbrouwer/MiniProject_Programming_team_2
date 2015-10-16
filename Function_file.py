@@ -1,10 +1,5 @@
 # This is the main file of our python program
-import sqlite3
-import codecs
-import requests
-import datetime
-import xmltodict
-import os
+import sqlite3, codecs, requests, datetime, xmltodict, os
 # Intergratie
 # XML PART
 
@@ -312,6 +307,8 @@ def SQL_Select_Provided_Films(provider_e_mail):
         conn.close()
         return cursordata
 
+
+#Codegenerator
 
 def codegenerator(name, mail, film, starttijd):
     """

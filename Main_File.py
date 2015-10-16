@@ -7,8 +7,8 @@ import pyqrcode
 class Interface:
     """This is a class for the interface, all the functions related to the interface are in this class"""
     def __init__(self, master):
-        """This is the main function for the interface, all statements needed for the first page of the aplication are in here
-        :parameter      master = different name for the root window, wich is the first window
+        """This is the main function for the interface, all statements needed for the first page of the application are in here
+        :parameter      master = different name for the root window, witch is the first window
         """
         master.wm_title("Thuisbioscoop Team 2 ")
         master.geometry("310x250")
@@ -70,7 +70,10 @@ class Interface:
             with all the customers"""
         else:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
+            Provider_Inlog_Screen.destroy()
             self.provider_site()
+
+
 
     def ticket(self, filmnaam, username, email):
         """This function creates the ticket code and also makes a qr code that connects with your ticket code
