@@ -39,7 +39,10 @@ class Interface:
               background="steel blue").grid(row=5)
 
     def provider_site(self):
-        """This function opens a new window that enables you to login as a film providers"""
+        """This function opens a new window that enables you to login as a film providers
+        globals:        Provider_Inlog_Screen = The screen for the provider to login
+                        Entry_3 = The entry for the E-mailadres
+                        Entry_4 = The entry for the password"""
         global Provider_Inlog_Screen
         Provider_Inlog_Screen = Toplevel()
         Provider_Inlog_Screen.geometry("200x100")
@@ -56,7 +59,9 @@ class Interface:
         button_1.grid(row=2, column=1)
 
     def loginbutton_provider(self):
-        """This function does the same as loginButton but for a different page"""
+        """This function checks if a provider is logged in correctly
+        if: mail and password are in the database: provider logged in succesfully
+        else: provider not logged in correctly"""
         mail = entry_3.get()
         password = entry_4.get()
         if Function_file.Check_Provider_Login(mail, password):
@@ -119,7 +124,9 @@ class Interface:
                 continue
 
     def login_button(self):
-        """This function saves the login that is entered in the two entry's for the user """
+        """This function saves the login that is entered in the two entry's for the user
+        if: name and mail are empty: user didn't put in any data, no acces to films
+        else: acces to films of that day"""
         name = entry_1.get()
         mail = entry_2.get()
         if name == "" and mail == "":

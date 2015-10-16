@@ -5,7 +5,8 @@ import sqlite3, codecs, requests, datetime, xmltodict, os
 
 
 def datum():
-    """This function specifies the current date, this date is used in the request url"""
+    """This function specifies the current date, this date is used in the request url
+    :return     date = current date"""
     i = datetime.datetime.now()
     date = ("%s-%s-%s" % (i.day, i.month, i.year))
     return date
@@ -22,7 +23,7 @@ def schrijf_xml(data):
 
 
 def apicall():
-    """this function transfers data from the filmtotaal server, by using API, into the schrijf_xml function"""
+    """This function transfers data from the filmtotaal server, by using API, into the schrijf_xml function"""
     date = datum()
     response = requests.get('http://www.filmtotaal.nl/api/filmsoptv.xml?apikey=zmp3tnvbezlo4gbl4bh0mkro5e63xzkb&dag=' +
                             date+'&sorteer=0')
@@ -31,7 +32,8 @@ def apicall():
 
 
 def read_xml():
-    """this function makes it so that the xml file can actually be read like string"""
+    """this function makes it so that the xml file can actually be read like string
+    :return         """
     bestand = open('filmlijst.xml', 'r')
     xml_string = bestand.read()
     bestand.close()
