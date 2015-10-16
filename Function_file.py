@@ -276,7 +276,6 @@ def Check_Provider_Login(provider_email, password):
     cursor = conn.execute('''SELECT E_Mail, Password FROM Providers WHERE E_Mail = ? AND Password = ?''',
                           (str(provider_email), str(password)))
     checkvalue = (len(cursor.fetchall()))
-    print(type(checkvalue))
     if checkvalue == 1:
         return True
     if checkvalue == 0:
@@ -340,4 +339,4 @@ SQL_Check_DB_Directory()
 SQL_Create_Database()
 SQL_Write_Films(Film_Name, Start_Time, End_Time, Date)
 SQL_Write_Provider(provider_email, provider_password, provider_name, Film_Name)
-print(SQL_Select_Provided_Films('andreas.fabian@gmail.com'))
+

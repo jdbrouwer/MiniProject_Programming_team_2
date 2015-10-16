@@ -1,5 +1,5 @@
 # MiniProject_Programming_team_2
-programming miniproject voor de hogeschool utrecht. (groepsleden zijn jochem,leo,jip,sjoerd en jacob) dit is een test
+Programming miniproject voor de hogeschool utrecht. (groepsleden zijn Jochem,Leo,Jip,Sjoerd en Jacob)
 
 Stap 1:
 Om ons programma te laten werken moeten er voorafgaand een aantal Plugins geinstaleerd worden. De plugins die geinstaleerd moeten worden zijn hieronder weergegeven:
@@ -18,7 +18,7 @@ Voor een verdere uitleg van de interface kijk ons filmpje (link).
 
 
 
-E_Mail en wachtwoorden van de providers, aldus inloggegevens (dit is testdata).
+E_Mail en wachtwoorden van de providers, aldus inloggegevens (dit is testdata). Deze e-mails zijn opgesteld met behulp van 'Behind the word' (random name generator).
 
 Email                       Wachtwoord
 elmo.tilo@gmail.com	        Welkom01
