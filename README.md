@@ -2,7 +2,8 @@
 Programming miniproject voor de hogeschool utrecht. (groepsleden zijn Jochem,Leo,Jip,Sjoerd en Jacob)
 
 Stap 1:
-Om ons programma te laten werken moeten er voorafgaand een aantal Plugins geinstaleerd worden. De plugins die geinstaleerd moeten worden zijn hieronder weergegeven:
+Om ons programma te laten werken moeten er voorafgaand een aantal Plugins geinstaleerd worden.
+De plugins die geinstaleerd moeten worden zijn hieronder weergegeven:
 -requests
 -xmltdict
 -Pillow(Image,ImageTk)
@@ -11,14 +12,16 @@ Om ons programma te laten werken moeten er voorafgaand een aantal Plugins geinst
 -pypng
 
 Stap 2:
-Navigeer naar de Python file genaamd 'Main_file.py' als je deze file runt (groene play teken naast regel 1 indrukken) zal de interface openen en de database word aangemaakt.
+Navigeer naar de Python file genaamd 'Main_file.py' als je deze file runt (groene play teken naast regel 1 indrukken)
+zal de interface openen en de database word aangemaakt.
 Voor een verdere uitleg van de interface kijk ons filmpje (link).
 
 
 
 
 
-E_Mail en wachtwoorden van de providers, aldus inloggegevens (dit is testdata). Deze e-mails zijn opgesteld met behulp van 'Behind the word' (random name generator).
+E_Mail en wachtwoorden van de providers, aldus inloggegevens (dit is testdata).
+Deze e-mails zijn opgesteld met behulp van 'Behind the word' (random name generator).
 
 Email                       Wachtwoord
 elmo.tilo@gmail.com	        Welkom01
