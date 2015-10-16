@@ -52,10 +52,10 @@ class Interface:
         global entry_4
         entry_4 = Entry(Provider_Inlog_Screen)
         entry_4.grid(row=1, column=1)
-        button_1 = Button(Provider_Inlog_Screen, text="Inloggen", command=self.loginButton_provider)
+        button_1 = Button(Provider_Inlog_Screen, text="Inloggen", command=self.loginbutton_provider)
         button_1.grid(row=2, column=1)
 
-    def loginButton_provider(self):
+    def loginbutton_provider(self):
         """This function does the same as loginButton but for a different page"""
         mail = entry_3.get()
         password = entry_4.get()
@@ -77,8 +77,6 @@ class Interface:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
             Provider_Inlog_Screen.destroy()
             self.provider_site()
-
-
 
     def ticket(self, filmnaam, username, email):
         """This function creates the ticket code and also makes a qr code that connects with your ticket code
