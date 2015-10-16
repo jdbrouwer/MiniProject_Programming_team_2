@@ -295,7 +295,7 @@ def SQL_Select_Provided_Films(provider_e_mail):
     try:
 
         cursor = conn.execute('''SELECT StartTime_Film,Name,Film,Date_Film,Ticket_code
-                                 FROM Providers INNER JOIN User on Providers.Film = User.Chosen_Film
+                                  FROM Providers INNER JOIN User on Providers.Film = User.Chosen_Film
                                  WHERE Providers.E_mail = ?
                                  ORDER BY Time(User.StartTime_Film) ASC, User.Name ASC''',([provider_e_mail]))
         cursordata = cursor.fetchall()

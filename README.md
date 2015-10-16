@@ -1,6 +1,9 @@
 # MiniProject_Programming_team_2
 Programming miniproject voor de hogeschool utrecht. (groepsleden zijn Jochem,Leo,Jip,Sjoerd en Jacob)
 
+Github Clone link: https://github.com/jdbrouwer/MiniProject_Programming_team_2.git
+
+stappenplan opstarten programma:
 Stap 1:
 Om ons programma te laten werken moeten er voorafgaand een aantal Plugins geinstaleerd worden.
 De plugins die geinstaleerd moeten worden zijn hieronder weergegeven:
