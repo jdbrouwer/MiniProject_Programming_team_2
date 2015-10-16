@@ -17,11 +17,7 @@ zal de interface openen en de database word aangemaakt.
 Voor een verdere uitleg van de interface kijk ons filmpje (link).
 
 
-
-
-
-E_Mail en wachtwoorden van de providers, aldus inloggegevens (dit is testdata).
-Deze e-mails zijn opgesteld met behulp van 'Behind the word' (random name generator).
+E_Mail en wachtwoorden van de providers, aldus inloggegevens (dit is testdata). Deze e-mails zijn opgesteld met behulp van 'Behind the word' (random name generator).
 
 Email                       Wachtwoord
 elmo.tilo@gmail.com	        Welkom01

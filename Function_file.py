@@ -5,7 +5,7 @@ import sqlite3, codecs, requests, datetime, xmltodict, os
 
 
 def datum():
-    """This function specifies the current date, this date is used in the request url"""
+    """This function returns the current date, this date is used in the request url"""
     i = datetime.datetime.now()
     date = ("%s-%s-%s" % (i.day, i.month, i.year))
     return date

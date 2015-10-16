@@ -64,7 +64,7 @@ class Interface:
             film_table_screen = Toplevel()
             film_table_screen.geometry("600x400")
             film_table_screen.config(background="steel blue")
-            Label(film_table_screen, text="Hier komen de films van de aanbieder", background="steel blue").grid(row=1)
+            Label(film_table_screen, text="Hier worden uw bezoekers getoond.", background="steel blue").grid(row=1)
             t = 2
             for e in Function_file.SQL_Select_Provided_Films(mail):
                 print(e)
@@ -77,6 +77,8 @@ class Interface:
             tkinter.messagebox.showinfo("Netflix à la 1900", "Verkeerde inlog gegevens")
             Provider_Inlog_Screen.destroy()
             self.provider_site()
+
+
 
     def ticket(self, filmnaam, username, email):
         """This function creates the ticket code and also makes a qr code that connects with your ticket code
