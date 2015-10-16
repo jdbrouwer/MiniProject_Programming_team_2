@@ -13,10 +13,10 @@ class Interface:
         master.wm_title("Thuisbioscoop Team 2 ")
         master.geometry("310x250")
         master.configure(background="steel blue")
-        taakbalk = Menu(master)
-        master.config(menu=taakbalk)
-        submenu = Menu(taakbalk)
-        taakbalk.add_cascade(label="About", menu=submenu)
+        upper_menu = Menu(master)
+        master.config(menu=upper_menu)
+        submenu = Menu(upper_menu)
+        upper_menu.add_cascade(label="About", menu=submenu)
         submenu.add_command(label="Help", command=self.help)
         Label(master, text="Naam").grid(row=0, sticky=E)
         Label(master, text="E-mailadres").grid(row=1, sticky=E)
@@ -24,13 +24,16 @@ class Interface:
 
     def help(self):
         """This function opens a new window with information regarding the helpdesk of the application"""
-        win = Toplevel()
-        win.geometry("200x200")
-        Label(win, text="Welkom bij onze thuisbioscoop applicatie").grid(row=1)
-        Label(win, text="Deze applicatie kan gebruikt worden om films te reserven in de thuisbioscoop.").grid(row=2)
-        Label(win, text="Daarnaast is het mogelijk om de reserveringen per filmaanbieder in te zien.").grid(row=3)
-        Label(win, text="Dit kan gedaan worden door eerst in te loggen met een geldige aanbieder.").grid(row=4)
-        Label(win, text="Een lijst met geldige aanbieders kan men vinden in de readme.md").grid(row=5)
+        help_window = Toplevel()
+        help_window.geometry("200x200")
+        Label(help_window, text="Welkom bij onze thuisbioscoop applicatie").grid(row=1)
+        help_1 = Label(help_window, text="Deze applicatie kan gebruikt worden om films te reserven "
+                                         "in de thuisbioscoop.")
+        help_1.grid(row=2)
+        help_2 = Label(help_window, text="Daarnaast is het mogelijk om de reserveringen per filmaanbieder in te zien.")
+        help_2.grid(row=3)
+        Label(help_window, text="Dit kan gedaan worden door eerst in te loggen met een geldige aanbieder.").grid(row=4)
+        Label(help_window, text="Een lijst met geldige aanbieders kan men vinden in de readme.md").grid(row=5)
 
     def provider_site(self):
         """This function opens a new window that enables you to login as a film providers"""
@@ -45,8 +48,8 @@ class Interface:
         global entry_4
         entry_4 = Entry(Provider_Inlog_Screen)
         entry_4.grid(row=1, column=1)
-        button1 = Button(Provider_Inlog_Screen, text="Inloggen", command=self.loginButton_provider)
-        button1.grid(row=2, column=1)
+        button_1 = Button(Provider_Inlog_Screen, text="Inloggen", command=self.loginButton_provider)
+        button_1.grid(row=2, column=1)
 
     def loginButton_provider(self):
         """This function does the same as loginButton but for a different page"""
@@ -54,13 +57,13 @@ class Interface:
         password = entry_4.get()
         if Function_file.Check_Provider_Login(mail, password):
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
-            film_a = Toplevel()
-            film_a.geometry("600x400")
-            Label(film_a, text="Hier komen de films van de aanbieder").grid(row=1)
+            film_table_screen = Toplevel()
+            film_table_screen.geometry("600x400")
+            Label(film_table_screen, text="Hier komen de films van de aanbieder").grid(row=1)
             i = 2
             for e in Function_file.SQL_Select_Provided_Films(mail):
                 print(e)
-                Label(film_a, text=e).grid(row=i)
+                Label(film_table_screen, text=e).grid(row=i)
                 i += 1
 
             """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
@@ -75,11 +78,11 @@ class Interface:
                     username= the name that was entered in the login-screen of the user
                     email= the e-mailadres entered in the login-screen of the user
         """
-        naam_film = filmnaam[0]
-        begintijd = filmnaam[1]
-        ticket_code = Function_file.codegenerator(username, email, naam_film, begintijd)
-        qr = pyqrcode.QRCode(ticket_code)
-        qr.show()
+        name_film = filmnaam[0]
+        starttime = filmnaam[1]
+        ticket_code = Function_file.codegenerator(username, email, name_film, starttime)
+        qr_code = pyqrcode.QRCode(ticket_code)
+        qr_code.show()
         # Schrijft de ticket informatie naar de database
         Function_file.SQL_Write_User(username, email, ticket_code, filmnaam[0], filmnaam[1], filmnaam[3])
         # Weergeeft de ticketcode in de UI
@@ -97,9 +100,9 @@ class Interface:
         label_film.grid(row=1)
         films_query = Function_file.SQL_Select_Film()
         row = 2
-        for filmnaam in films_query:
-            provider_name = Function_file.SQL_Select_Provider(filmnaam[0])
-            keuze = filmnaam + tuple(provider_name)
+        for filmname in films_query:
+            provider_name = Function_file.SQL_Select_Provider(filmname[0])
+            keuze = filmname + tuple(provider_name)
             if len(keuze) > 4:
                 c = Button(film_window, width=100, bg='white', text=keuze,
                            command=(lambda filmen=keuze: self.ticket(filmen, name, mail)))
