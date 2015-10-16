@@ -11,37 +11,41 @@ class Interface:
         :parameter      master = different name for the root window, wich is the first window
         """
         master.wm_title("Thuisbioscoop Team 2 ")
-        master.geometry("310x250")
+        master.geometry("310x300")
         master.configure(background="steel blue")
         upper_menu = Menu(master)
         master.config(menu=upper_menu)
         submenu = Menu(upper_menu)
         upper_menu.add_cascade(label="About", menu=submenu)
         submenu.add_command(label="Help", command=self.help)
-        Label(master, text="Naam").grid(row=0, sticky=E)
-        Label(master, text="E-mailadres").grid(row=1, sticky=E)
+        Label(master, text="Naam", bg="steel blue").grid(row=0, sticky=E, )
+        Label(master, text="E-mailadres", bg="steel blue").grid(row=1, sticky=E)
         Button(master, text="Site voor aanbieders", command=self.provider_site).grid(row=1, column=2, columnspan=1)
 
     def help(self):
         """This function opens a new window with information regarding the helpdesk of the application"""
         help_window = Toplevel()
-        help_window.geometry("200x200")
-        Label(help_window, text="Welkom bij onze thuisbioscoop applicatie").grid(row=1)
-        help_1 = Label(help_window, text="Deze applicatie kan gebruikt worden om films te reserven "
-                                         "in de thuisbioscoop.")
+        help_window.config(background="steel blue")
+        Label(help_window, text="Welkom bij onze thuisbioscoop applicatie", background="steel blue").grid(row=1)
+        help_1 = Label(help_window, text="Deze applicatie kan gebruikt worden om films te reserveren "
+                                         "in de thuisbioscoop.", background="steel blue")
         help_1.grid(row=2)
-        help_2 = Label(help_window, text="Daarnaast is het mogelijk om de reserveringen per filmaanbieder in te zien.")
+        help_2 = Label(help_window, text="Daarnaast is het mogelijk om de reserveringen per filmaanbieder in te zien.",
+                       background="steel blue")
         help_2.grid(row=3)
-        Label(help_window, text="Dit kan gedaan worden door eerst in te loggen met een geldige aanbieder.").grid(row=4)
-        Label(help_window, text="Een lijst met geldige aanbieders kan men vinden in de readme.md").grid(row=5)
+        Label(help_window, text="Dit kan gedaan worden door eerst in te loggen met een geldige aanbieder.",
+              background="steel blue").grid(row=4)
+        Label(help_window, text="Een lijst met geldige aanbieders kan men vinden in de readme.md",
+              background="steel blue").grid(row=5)
 
     def provider_site(self):
         """This function opens a new window that enables you to login as a film providers"""
         global Provider_Inlog_Screen
         Provider_Inlog_Screen = Toplevel()
         Provider_Inlog_Screen.geometry("200x100")
-        Label(Provider_Inlog_Screen, text="E-mail").grid(row=0, sticky=E)
-        Label(Provider_Inlog_Screen, text="Password").grid(row=1, sticky=E)
+        Provider_Inlog_Screen.config(background="steel blue")
+        Label(Provider_Inlog_Screen, text="E-mail", background="steel blue").grid(row=0, sticky=E)
+        Label(Provider_Inlog_Screen, text="Password", background="steel blue").grid(row=1, sticky=E)
         global entry_3
         entry_3 = Entry(Provider_Inlog_Screen)
         entry_3.grid(row=0, column=1)
@@ -59,12 +63,13 @@ class Interface:
             tkinter.messagebox.showinfo("Netflix à la 1900", "U bent succesvol ingelogd!")
             film_table_screen = Toplevel()
             film_table_screen.geometry("600x400")
-            Label(film_table_screen, text="Hier komen de films van de aanbieder").grid(row=1)
-            i = 2
+            film_table_screen.config(background="steel blue")
+            Label(film_table_screen, text="Hier komen de films van de aanbieder", background="steel blue").grid(row=1)
+            t = 2
             for e in Function_file.SQL_Select_Provided_Films(mail):
                 print(e)
                 Label(film_table_screen, text=e).grid(row=i)
-                i += 1
+                t += 1
 
             """Here needs to be a function that checks all the movies of the supplier and puts them in the interface
             with all the customers"""
@@ -96,7 +101,8 @@ class Interface:
                         mail= the mail of the user got form the login
         """
         film_window = Toplevel()
-        label_film = Label(film_window, text="Beschikbare films vandaag")
+        film_window.config(background="steel blue")
+        label_film = Label(film_window, text="Beschikbare films vandaag", background="steel blue")
         label_film.grid(row=1)
         films_query = Function_file.SQL_Select_Film()
         row = 2
